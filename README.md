@@ -1,5 +1,5 @@
 # Jetpack Compose
 
 <p align="center">
-    <img src="https://github.com/demjrhan/jetpack-adventure/blob/main/screenshots/screenshot.png" alt="Final Status Screenshot" width="500"/>
+    <img src="https://github.com/demjrhan/jetpack-adventure/blob/main/screenshots/screenshot_1.png" alt="Final Status Screenshot" width="500"/>
 </p>
