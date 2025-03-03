@@ -10,8 +10,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,8 +24,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -46,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomePage(list: List<Int>, description: String) {
+fun Videos(list: List<Int>, description: String) {
     val thumbnailBrush = Brush.linearGradient(
         listOf(
             Color(0xFFFADF70), // Soft Yellow
@@ -66,13 +73,10 @@ fun HomePage(list: List<Int>, description: String) {
     )
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(screenBrush, RoundedCornerShape(1.dp))
+            .background(screenBrush),
     ) {
-        repeat(3) { index ->
+        repeat(list.size - 1) { index ->
             if (index < list.size) {
-
-
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -83,7 +87,7 @@ fun HomePage(list: List<Int>, description: String) {
                         state = rememberPagerState(
                             initialPage = 0,
                             pageCount = { list.size }),
-                        pageSpacing = 16.dp
+                        pageSpacing = 16.dp,
                     ) {
                         Card(
                             colors = CardDefaults.cardColors(Color.White)
@@ -139,6 +143,13 @@ fun HomePage(list: List<Int>, description: String) {
 
 }
 
+@Composable
+fun Shorts(list: List<Int>, description: String) {
+
+
+}
+
+
 @Preview(showBackground = true)
 @Composable
 fun Preview() {
@@ -146,6 +157,24 @@ fun Preview() {
         val list = listOf(
             R.drawable.feel_like_yourself, R.drawable.logo, R.drawable.feel_like_yourself
         )
-        HomePage(list = list, description = "empty description")
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(3f)
+                    .fillMaxWidth()
+            ) {
+                Videos(list = list, description = "empty description")
+            }
+
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
+                Shorts(list = list, description = "empty description")
+            }
+        }
     }
 }
