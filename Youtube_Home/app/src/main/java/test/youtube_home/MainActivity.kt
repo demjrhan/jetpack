@@ -14,9 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,12 +24,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,7 +56,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Videos(list: List<Int>, description: String) {
+fun Videos(videos: List<Int>, description: String) {
     val thumbnailBrush = Brush.linearGradient(
         listOf(
             Color(0xFFFADF70), // Soft Yellow
@@ -67,16 +70,16 @@ fun Videos(list: List<Int>, description: String) {
         listOf(
             Color(0xFF000000), // Pure Black
             Color(0xFF141414), // Deep Charcoal
-            Color(0xFF282828) // Dark Graphite
+            Color(0xFF282828), // Dark Graphite
+            Color(0xFFFFFFFF) // White
         )
 
     )
     Column(
-        modifier = Modifier
-            .background(screenBrush),
+        modifier = Modifier.background(screenBrush),
     ) {
-        repeat(list.size - 1) { index ->
-            if (index < list.size) {
+        repeat(videos.size - 1) { index ->
+            if (index < videos.size) {
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -84,9 +87,7 @@ fun Videos(list: List<Int>, description: String) {
                         .clip(RoundedCornerShape(16.dp))
                 ) {
                     HorizontalPager(
-                        state = rememberPagerState(
-                            initialPage = 0,
-                            pageCount = { list.size }),
+                        state = rememberPagerState(initialPage = 0, pageCount = { videos.size }),
                         pageSpacing = 16.dp,
                     ) {
                         Card(
@@ -95,7 +96,9 @@ fun Videos(list: List<Int>, description: String) {
 
                             Image(
                                 modifier = Modifier
-                                    .background(thumbnailBrush, RoundedCornerShape(1.dp))
+                                    .background(
+                                        thumbnailBrush, RoundedCornerShape(1.dp)
+                                    )
                                     .weight(0.7f)
                                     .fillMaxSize()
                                     .padding(12.dp)
@@ -108,23 +111,21 @@ fun Videos(list: List<Int>, description: String) {
                                         )
                                     ),
                                 contentScale = ContentScale.Crop,
-                                painter = painterResource(list[index]),
+                                painter = painterResource(videos[index]),
                                 contentDescription = description
                             )
                             Box(modifier = Modifier.weight(0.3f)) {
                                 Column(modifier = Modifier.fillMaxSize(), Arrangement.Center) {
                                     Text(
                                         text = "Title",
-                                        modifier = Modifier
-                                            .padding(start = 16.dp),
+                                        modifier = Modifier.padding(start = 16.dp),
                                         fontWeight = FontWeight.SemiBold,
                                         fontFamily = FontFamily.Monospace,
                                         fontSize = 18.sp
                                     )
                                     Text(
                                         text = "Channel Name",
-                                        modifier = Modifier
-                                            .padding(start = 16.dp),
+                                        modifier = Modifier.padding(start = 16.dp),
                                         fontWeight = FontWeight.Normal,
                                         fontFamily = FontFamily.Monospace,
                                         fontSize = 13.sp
@@ -143,9 +144,94 @@ fun Videos(list: List<Int>, description: String) {
 
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Shorts(list: List<Int>, description: String) {
+fun Shorts(shorts: List<Int>, description: String) {
+    val thumbnailBrush = Brush.linearGradient(
+        listOf(
+            Color(0xFFFADF70), // Soft Yellow
+            Color(0xFFEC635E), // Coral Red
+            Color(0xFF7AC07B), // Soft Green
+            Color(0xFF437BDA), // Blue
+            Color(0xFF000000)  // Black
+        )
+    )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
 
+        Row(
+            modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            HorizontalPager(
+                state = rememberPagerState(initialPage = 0, pageCount = { shorts.size }),
+            ) {
+                repeat(shorts.size) { index ->
+                    Card(
+
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(0.33f)
+                            .padding(8.dp)
+                            .clip(RoundedCornerShape(6.dp))
+                    ) {
+
+                        Box(modifier = Modifier.fillMaxSize()) {
+
+                            Image(
+                                modifier = Modifier
+                                    .background(
+                                        thumbnailBrush, RoundedCornerShape(2.dp)
+                                    )
+                                    .fillMaxSize()
+                                    .padding(4.dp)
+                                    .clip(
+                                        RoundedCornerShape(
+                                            12.dp
+                                        )
+                                    ),
+                                contentScale = ContentScale.Crop,
+                                painter = painterResource(shorts[index]),
+                                contentDescription = description
+                            )
+
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.25f)
+                                    .align(Alignment.BottomCenter)
+                                    .padding(4.dp)
+                                    .background(Color.Transparent)
+                            ) {
+                                Text(
+                                    text = "Short description for testing alignment.",
+                                    maxLines = 2,
+                                    lineHeight = 12.sp,
+                                    fontSize = 10.sp,
+                                    color = Color.White,
+                                    modifier = Modifier
+                                        .align(Alignment.BottomStart)
+                                        .padding(start = 5.dp, end = 4.dp, bottom = 4.dp),
+                                    style = TextStyle(shadow = Shadow(
+                                        Color.Black,
+                                        offset = Offset(1f, 1f))
+                                    ),
+                                    fontWeight = FontWeight.Light,
+                                    fontFamily = FontFamily.Monospace,
+                                )
+                            }
+                        }
+
+
+                    }
+                }
+            }
+
+        }
+
+    }
 
 }
 
@@ -154,8 +240,11 @@ fun Shorts(list: List<Int>, description: String) {
 @Composable
 fun Preview() {
     Youtube_HomeTheme {
-        val list = listOf(
-            R.drawable.feel_like_yourself, R.drawable.logo, R.drawable.feel_like_yourself
+        val videos = listOf(
+            R.drawable.name, R.drawable.logo, R.drawable.name
+        )
+        val shorts = listOf(
+            R.drawable.name_shorts, R.drawable.logo_shorts, R.drawable.name_shorts
         )
         Column(
             modifier = Modifier.fillMaxSize()
@@ -165,7 +254,7 @@ fun Preview() {
                     .weight(3f)
                     .fillMaxWidth()
             ) {
-                Videos(list = list, description = "empty description")
+                Videos(videos = videos, description = "empty description")
             }
 
             Box(
@@ -173,8 +262,9 @@ fun Preview() {
                     .weight(1f)
                     .fillMaxWidth()
             ) {
-                Shorts(list = list, description = "empty description")
+                Shorts(shorts = shorts, description = "empty description")
             }
+
         }
     }
 }
