@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -94,7 +95,8 @@ fun SearchField(text: String, onValueChange: (String) -> Unit, color: Color) {
             fontFamily = FontFamily.Monospace,
             color = color
         ),
-        modifier = Modifier.fillMaxWidth(1f)
+        modifier = Modifier.fillMaxWidth(1f),
+        cursorBrush = SolidColor(Color.Unspecified)
     )
 }
 
@@ -180,11 +182,12 @@ fun CustomTextFieldRefactored(
                 if (text.isEmpty()) {
                     Text(
                         text = searchText,
+                        color = Color.White,
                         modifier = Modifier.alpha(0.5f)
                     )
                 } else {
-                        searchText = ""
-                        modifier.alpha(searchTextAlpha)
+                    searchText = ""
+                    modifier.alpha(searchTextAlpha)
                 }
             }
 
@@ -233,6 +236,7 @@ fun CustomTextField(
             fontFamily = FontFamily.Monospace
         ),
         decorationBox = { innerTextField ->
+
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
 
                 Icon(
