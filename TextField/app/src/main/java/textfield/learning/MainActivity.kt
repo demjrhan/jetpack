@@ -1,50 +1,32 @@
 package textfield.learning
 
-import android.annotation.SuppressLint
-import android.graphics.Paint.Align
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text2.BasicTextField2
-import androidx.compose.foundation.text2.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
@@ -55,18 +37,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import textfield.learning.ui.theme.TextFieldLearningTheme
-import java.util.Timer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,7 +77,7 @@ fun Preview() {
                     .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
-                CustomTextField2()
+                CustomTextFieldRefactored()
             }
         }
 
@@ -111,12 +86,13 @@ fun Preview() {
 }
 
 @Composable
-fun SearchField(text: String, onValueChange: (String) -> Unit) {
+fun SearchField(text: String, onValueChange: (String) -> Unit, color: Color) {
     BasicTextField(
         value = text,
         onValueChange = onValueChange,
         textStyle = TextStyle(
-            fontFamily = FontFamily.Monospace
+            fontFamily = FontFamily.Monospace,
+            color = color
         ),
         modifier = Modifier.fillMaxWidth(1f)
     )
@@ -136,7 +112,7 @@ fun SearchIcon(onSearch: () -> Unit, color: Color) {
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun DeleteIcon(visibility: Boolean, onClick: () -> Unit) {
+fun DeleteIcon(visibility: Boolean, onClick: () -> Unit, color: Color) {
     AnimatedVisibility(
         visible = visibility,
         enter = fadeIn(),
@@ -152,17 +128,19 @@ fun DeleteIcon(visibility: Boolean, onClick: () -> Unit) {
                 )
                 .clickable {
                     onClick()
-                }
+                },
+            tint = color
         )
     }
 }
 
 
 @Composable
-fun CustomTextField2(
+fun CustomTextFieldRefactored(
     modifier: Modifier = Modifier
 ) {
     var text by remember { mutableStateOf("") }
+    var searchText by remember { mutableStateOf("Search") }
     var isTextVisible by remember { mutableStateOf(true) }
     var searchTextAlpha by remember {
         mutableFloatStateOf(1f)
@@ -178,7 +156,7 @@ fun CustomTextField2(
             .padding(15.dp)
 
     ) {
-        Row() {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
 
             SearchIcon(onSearch = {
                 if (text.isNotEmpty()) {
@@ -195,14 +173,39 @@ fun CustomTextField2(
 
             Spacer(modifier.padding(end = 8.dp))
 
-            SearchField(text = text, onValueChange =
-            { text = it })
+
+
+            Box(modifier = modifier.weight(1f)) {
+                SearchField(text = text, onValueChange = { text = it }, color = Color.White)
+                if (text.isEmpty()) {
+                    Text(
+                        text = searchText,
+                        modifier = Modifier.alpha(0.5f)
+                    )
+                } else {
+                        searchText = ""
+                        modifier.alpha(searchTextAlpha)
+                }
+            }
+
+            Spacer(modifier.padding(end = 8.dp))
+
+            DeleteIcon(visibility = text.isNotEmpty(), onClick = {
+
+                isTextVisible = false
+                coroutineScope.launch {
+                    delay(100)
+                    text = ""
+                    isTextVisible = true
+                }
+            }, color = Color.White)
         }
     }
 
 }
 
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun CustomTextField(
     modifier: Modifier = Modifier
@@ -232,18 +235,24 @@ fun CustomTextField(
         decorationBox = { innerTextField ->
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
 
-                SearchIcon(onSearch = {
-                    if (text.isNotEmpty()) {
-                        searchTextAlpha = 0.5f
-                        text = "Searched!"
-                        coroutineScope.launch {
-                            delay(2000)
-                            searchTextAlpha = 1f
-                            text = ""
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "",
+                    modifier = Modifier.clickable() {
+                        if (text.isNotEmpty()) {
+                            searchTextAlpha = 0.5f
+                            text = "Searched!"
+                            coroutineScope.launch {
+                                delay(2000)
+                                searchTextAlpha = 1f
+                                text = ""
 
+                            }
                         }
+
                     }
-                }, color = Color.Unspecified)
+                )
+
                 Spacer(modifier.padding(end = 8.dp))
 
 
@@ -264,15 +273,30 @@ fun CustomTextField(
                 }
 
                 Spacer(modifier.padding(end = 8.dp))
-                DeleteIcon(visibility = text.isNotEmpty(), onClick = {
+                AnimatedVisibility(
+                    visible = text.isNotEmpty(),
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = "",
+                        modifier = Modifier
+                            .animateEnterExit(
+                                enter = slideInVertically(),
+                                exit = slideOutVertically()
+                            )
+                            .clickable {
+                                isTextVisible = false
+                                coroutineScope.launch {
+                                    delay(100)
+                                    text = ""
+                                    isTextVisible = true
+                                }
 
-                    isTextVisible = false
-                    coroutineScope.launch {
-                        delay(100)
-                        text = ""
-                        isTextVisible = true
-                    }
-                })
+                            }
+                    )
+                }
 
 
             }
