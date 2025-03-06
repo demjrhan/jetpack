@@ -2,6 +2,7 @@ package textfield.learning
 
 import android.annotation.SuppressLint
 import android.graphics.Paint.Align
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -83,33 +85,137 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Preview() {
     TextFieldLearningTheme {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.5f)
-                .background(MaterialTheme.colorScheme.primary),
-            contentAlignment = Alignment.Center
-        ) {
-            CustomTextField()
+        Column(modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .background(MaterialTheme.colorScheme.primary),
+                contentAlignment = Alignment.Center
+            ) {
+                CustomTextField()
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .background(MaterialTheme.colorScheme.primaryContainer),
+                contentAlignment = Alignment.Center
+            ) {
+                CustomTextField2()
+            }
         }
 
 
     }
 }
 
-@SuppressLint("CoroutineCreationDuringComposition")
+@Composable
+fun SearchField(text: String, onValueChange: (String) -> Unit) {
+    BasicTextField(
+        value = text,
+        onValueChange = onValueChange,
+        textStyle = TextStyle(
+            fontFamily = FontFamily.Monospace
+        ),
+        modifier = Modifier.fillMaxWidth(1f)
+    )
+}
+
+@Composable
+fun SearchIcon(onSearch: () -> Unit, color: Color) {
+    Icon(
+        imageVector = Icons.Default.Search,
+        contentDescription = "",
+        modifier = Modifier.clickable() {
+            onSearch()
+        },
+        tint = color
+    )
+}
+
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
+fun DeleteIcon(visibility: Boolean, onClick: () -> Unit) {
+    AnimatedVisibility(
+        visible = visibility,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
+        Icon(
+            imageVector = Icons.Default.Clear,
+            contentDescription = "",
+            modifier = Modifier
+                .animateEnterExit(
+                    enter = slideInVertically(),
+                    exit = slideOutVertically()
+                )
+                .clickable {
+                    onClick()
+                }
+        )
+    }
+}
+
+
+@Composable
+fun CustomTextField2(
+    modifier: Modifier = Modifier
+) {
+    var text by remember { mutableStateOf("") }
+    var isTextVisible by remember { mutableStateOf(true) }
+    var searchTextAlpha by remember {
+        mutableFloatStateOf(1f)
+    }
+    val coroutineScope = rememberCoroutineScope();
+
+    Box(
+        modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp)
+            .clip(RoundedCornerShape(50.dp))
+            .background(MaterialTheme.colorScheme.primary)
+            .padding(15.dp)
+
+    ) {
+        Row() {
+
+            SearchIcon(onSearch = {
+                if (text.isNotEmpty()) {
+                    searchTextAlpha = 0.5f
+                    text = "Searched!"
+                    coroutineScope.launch {
+                        delay(2000)
+                        searchTextAlpha = 1f
+                        text = ""
+
+                    }
+                }
+            }, color = Color.White)
+
+            Spacer(modifier.padding(end = 8.dp))
+
+            SearchField(text = text, onValueChange =
+            { text = it })
+        }
+    }
+
+}
+
+
+@Composable
 fun CustomTextField(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
 
     var text by remember { mutableStateOf("") }
     var isTextVisible by remember { mutableStateOf(true) }
     var searchTextAlpha by remember {
-        mutableStateOf(1f)
+        mutableFloatStateOf(1f)
     }
     val coroutineScope = rememberCoroutineScope();
+
+
 
     BasicTextField(
         modifier = modifier
@@ -125,30 +231,19 @@ fun CustomTextField(
         ),
         decorationBox = { innerTextField ->
             Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-                AnimatedVisibility(
-                    visible = text.isNotEmpty(),
-                    enter = slideInVertically(),
-                    exit = slideOutVertically(),
 
-                    ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "",
-                        modifier = Modifier.clickable() {
-                            if (text.isNotEmpty()) {
-                                searchTextAlpha = 0.5f
-                                text = "Searched!"
-                                coroutineScope.launch {
-                                    delay(2000)
-                                    searchTextAlpha = 1f
-                                    text = ""
-
-                                }
-                            }
+                SearchIcon(onSearch = {
+                    if (text.isNotEmpty()) {
+                        searchTextAlpha = 0.5f
+                        text = "Searched!"
+                        coroutineScope.launch {
+                            delay(2000)
+                            searchTextAlpha = 1f
+                            text = ""
 
                         }
-                    )
-                }
+                    }
+                }, color = Color.Unspecified)
                 Spacer(modifier.padding(end = 8.dp))
 
 
@@ -169,31 +264,16 @@ fun CustomTextField(
                 }
 
                 Spacer(modifier.padding(end = 8.dp))
+                DeleteIcon(visibility = text.isNotEmpty(), onClick = {
 
-                AnimatedVisibility(
-                    visible = text.isNotEmpty(),
-                    enter = fadeIn(),
-                    exit = fadeOut()
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .animateEnterExit(
-                                enter = slideInVertically(),
-                                exit = slideOutVertically()
-                            )
-                            .clickable {
-                                isTextVisible = false
-                                coroutineScope.launch {
-                                    delay(100)
-                                    text = ""
-                                    isTextVisible = true
-                                }
+                    isTextVisible = false
+                    coroutineScope.launch {
+                        delay(100)
+                        text = ""
+                        isTextVisible = true
+                    }
+                })
 
-                            }
-                    )
-                }
 
             }
 
