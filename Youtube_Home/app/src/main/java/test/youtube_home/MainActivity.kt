@@ -1,12 +1,17 @@
 package test.youtube_home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,14 +19,41 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -31,8 +63,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -54,9 +88,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Videos(videos: List<Int>, description: String) {
+fun Videos(videos: List<Int> , description: String) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp
     val thumbnailBrush = Brush.linearGradient(
         listOf(
             Color(0xFFFADF70), // Soft Yellow
@@ -78,11 +114,11 @@ fun Videos(videos: List<Int>, description: String) {
     Column(
         modifier = Modifier.background(screenBrush),
     ) {
-        repeat(videos.size - 1) { index ->
+        repeat(videos.size ) { index ->
             if (index < videos.size) {
                 Box(
                     modifier = Modifier
-                        .weight(1f)
+                        .height((screenHeight * 0.3).dp)
                         .padding(16.dp)
                         .clip(RoundedCornerShape(16.dp))
                 ) {
@@ -144,9 +180,20 @@ fun Videos(videos: List<Int>, description: String) {
 
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+data class BottomNavigationItem(
+    val title: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
+    val hasNews: Boolean,
+    val badgeCount: Int? = null
+)
+
+
 @Composable
 fun Shorts(shorts: List<Int>, description: String) {
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val screenHeight = LocalConfiguration.current.screenHeightDp
+    val itemWidth = screenWidth / 3
     val thumbnailBrush = Brush.linearGradient(
         listOf(
             Color(0xFFFADF70), // Soft Yellow
@@ -158,77 +205,79 @@ fun Shorts(shorts: List<Int>, description: String) {
     )
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .height((screenHeight * 0.3).dp)
             .padding(16.dp)
     ) {
 
-        Row(
-            modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly
+        LazyRow(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            HorizontalPager(
-                state = rememberPagerState(initialPage = 0, pageCount = { shorts.size }),
-            ) {
-                repeat(shorts.size) { index ->
-                    Card(
 
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .fillMaxWidth(0.33f)
-                            .padding(8.dp)
-                            .clip(RoundedCornerShape(6.dp))
-                    ) {
+            items(shorts.size) { index ->
+                Card(
 
-                        Box(modifier = Modifier.fillMaxSize()) {
+                    modifier = Modifier
+                        .width(itemWidth)
+                        .fillMaxHeight()
+                        .padding(8.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                ) {
 
-                            Image(
-                                modifier = Modifier
-                                    .background(
-                                        thumbnailBrush, RoundedCornerShape(2.dp)
-                                    )
-                                    .fillMaxSize()
-                                    .padding(4.dp)
-                                    .clip(
-                                        RoundedCornerShape(
-                                            12.dp
-                                        )
-                                    ),
-                                contentScale = ContentScale.Crop,
-                                painter = painterResource(shorts[index]),
-                                contentDescription = description
-                            )
+                    Box(modifier = Modifier.fillMaxSize()) {
 
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .fillMaxHeight(0.25f)
-                                    .align(Alignment.BottomCenter)
-                                    .padding(4.dp)
-                                    .background(Color.Transparent)
-                            ) {
-                                Text(
-                                    text = "Short description for testing alignment.",
-                                    maxLines = 2,
-                                    lineHeight = 12.sp,
-                                    fontSize = 10.sp,
-                                    color = Color.White,
-                                    modifier = Modifier
-                                        .align(Alignment.BottomStart)
-                                        .padding(start = 5.dp, end = 4.dp, bottom = 4.dp),
-                                    style = TextStyle(shadow = Shadow(
-                                        Color.Black,
-                                        offset = Offset(1f, 1f))
-                                    ),
-                                    fontWeight = FontWeight.Light,
-                                    fontFamily = FontFamily.Monospace,
+                        Image(
+                            modifier = Modifier
+                                .background(
+                                    thumbnailBrush, RoundedCornerShape(2.dp)
                                 )
-                            }
+                                .fillMaxSize()
+                                .padding(4.dp)
+                                .clip(
+                                    RoundedCornerShape(
+                                        12.dp
+                                    )
+                                ),
+                            contentScale = ContentScale.Crop,
+                            painter = painterResource(shorts[index]),
+                            contentDescription = description
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.25f)
+                                .align(Alignment.BottomCenter)
+                                .padding(4.dp)
+                                .background(Color.Transparent)
+                        ) {
+                            Text(
+                                text = "Short description for testing alignment.",
+                                maxLines = 2,
+                                lineHeight = 12.sp,
+                                fontSize = 10.sp,
+                                modifier = Modifier
+                                    .align(Alignment.BottomStart)
+                                    .padding(start = 5.dp, end = 4.dp, bottom = 4.dp),
+                                style = TextStyle(
+                                    shadow = Shadow(
+                                        Color.White,
+                                        offset = Offset(1f, 1f)
+                                    )
+                                ),
+                                fontWeight = FontWeight.Light,
+                                fontFamily = FontFamily.Monospace,
+                            )
                         }
-
-
                     }
+
+
                 }
             }
 
+
         }
 
     }
@@ -236,35 +285,95 @@ fun Shorts(shorts: List<Int>, description: String) {
 }
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showBackground = true)
 @Composable
 fun Preview() {
+    var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
+
+    val items = listOf(
+        BottomNavigationItem(
+            title = "Home",
+            selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home,
+            hasNews = false,
+        ),
+        BottomNavigationItem(
+            title = "Chat",
+            selectedIcon = Icons.Filled.Email,
+            unselectedIcon = Icons.Outlined.Email,
+            hasNews = false,
+            badgeCount = 45
+        ),
+        BottomNavigationItem(
+            title = "Settings",
+            selectedIcon = Icons.Filled.Settings,
+            unselectedIcon = Icons.Outlined.Settings,
+            hasNews = true,
+        ),
+    )
+
+    val videos = listOf(R.drawable.name, R.drawable.logo, R.drawable.name)
+    val shorts = listOf(R.drawable.name_shorts, R.drawable.logo_shorts, R.drawable.name_shorts)
+
+    val listState = rememberLazyListState()
+    var isBottomBarVisible by remember { mutableStateOf(true) }
+    var previousScrollOffset by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(remember  { listState.firstVisibleItemScrollOffset  }) {
+        val currentOffset = listState.firstVisibleItemScrollOffset
+        isBottomBarVisible = currentOffset < previousScrollOffset
+        previousScrollOffset = currentOffset
+    }
+
     Youtube_HomeTheme {
-        val videos = listOf(
-            R.drawable.name, R.drawable.logo, R.drawable.name
-        )
-        val shorts = listOf(
-            R.drawable.name_shorts, R.drawable.logo_shorts, R.drawable.name_shorts
-        )
-        Column(
-            modifier = Modifier.fillMaxSize()
+        Scaffold(
+            bottomBar = {
+                AnimatedVisibility(
+                    visible = isBottomBarVisible,
+                    enter = slideInVertically { it },
+                    exit = slideOutVertically { it }
+                ) {
+                    NavigationBar {
+                        items.forEachIndexed { index, item ->
+                            NavigationBarItem(
+                                selected = selectedItemIndex == index,
+                                onClick = { selectedItemIndex = index },
+                                label = { Text(text = item.title) },
+                                alwaysShowLabel = false,
+                                icon = {
+                                    BadgedBox(
+                                        badge = {
+                                            if (item.badgeCount != null) {
+                                                Badge { Text(text = item.badgeCount.toString()) }
+                                            } else if (item.hasNews) {
+                                                Badge()
+                                            }
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = if (index == selectedItemIndex) {
+                                                item.selectedIcon
+                                            } else item.unselectedIcon,
+                                            contentDescription = item.title
+                                        )
+                                    }
+                                }
+                            )
+                        }
+                    }
+                }
+            }
         ) {
-            Box(
-                modifier = Modifier
-                    .weight(3f)
-                    .fillMaxWidth()
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxSize()
             ) {
-                Videos(videos = videos, description = "empty description")
+                item { Videos(videos = videos, description = "empty description") }
+                item { Shorts(shorts = shorts, description = "empty description") }
             }
-
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-            ) {
-                Shorts(shorts = shorts, description = "empty description")
-            }
-
         }
     }
 }
+
+
