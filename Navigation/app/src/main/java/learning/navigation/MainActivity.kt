@@ -317,28 +317,7 @@ fun VideoDescription(color: Color = Color.White) {
                     contentAlignment = Alignment.CenterEnd
                 ) {
 
-                    Row() {
-                        Icon(
-                            Icons.Default.ThumbUp,
-                            contentDescription = null,
-                            tint = color,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(Modifier.width(5.dp))
-                        Icon(
-                            Icons.Default.ThumbUp,
-                            contentDescription = null,
-                            tint = color,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(Modifier.width(5.dp))
-                        Icon(
-                            Icons.Default.ThumbUp,
-                            contentDescription = null,
-                            tint = color,
-                            modifier = Modifier.size(16.dp)
-                        )
-                    }
+                    /* TODO ICONS */
 
                 }
 
