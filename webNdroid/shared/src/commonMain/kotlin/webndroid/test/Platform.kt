@@ -5,5 +5,3 @@ interface Platform {
 }
 
 expect fun getPlatform(): Platform
-expect fun getScreenWidth() : Int
-expect fun getScreenHeight() : Int

@@ -1,6 +1,5 @@
 package webndroid.test
 
-import App
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,10 +19,4 @@ class MainActivity : ComponentActivity() {
             App(screenWidth,screenHeight)
         }
     }
-}
-
-@Preview
-@Composable
-fun AppAndroidPreview() {
-  //App()
 }

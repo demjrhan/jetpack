@@ -5,11 +5,3 @@ class JVMPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = JVMPlatform()
-actual fun getScreenWidth(): Int {
-    TODO("Not yet implemented")
-
-}
-
-actual fun getScreenHeight(): Int {
-    TODO("Not yet implemented")
-}

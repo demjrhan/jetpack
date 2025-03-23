@@ -1,6 +1,6 @@
 package webndroid.test
 
-import App
+
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

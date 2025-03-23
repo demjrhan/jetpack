@@ -1,3 +1,5 @@
+package webndroid.test
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -21,7 +23,7 @@ fun App(
             topBar = {
                 Box(
                     modifier = Modifier
-                        .size(width = screenWidth, height = screenHeight/12) 
+                        .size(width = screenWidth, height = screenHeight/12)
                         .background(Color.Black)
                 )
             }
