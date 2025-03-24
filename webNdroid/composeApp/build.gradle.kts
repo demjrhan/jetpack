@@ -53,8 +53,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(projects.shared)
-        }
+            implementation(projects.shared) }
     }
 }
 
@@ -87,7 +86,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.material3)
-    implementation(project(":composeApp"))
     debugImplementation(compose.uiTooling)
 
 }
