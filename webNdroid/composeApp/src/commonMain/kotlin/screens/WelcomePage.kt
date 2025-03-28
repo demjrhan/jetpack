@@ -27,6 +27,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import components.BottomBar
+import components.NavigationBar
+import components.ToggleButton
+import components.TopBar
 
 @Composable
 fun page(screenWidth: Dp, screenHeight: Dp) {
@@ -66,7 +70,6 @@ fun page(screenWidth: Dp, screenHeight: Dp) {
                             showNavBar = showNavBar,
                             onClick = { showNavBar = !showNavBar }
                         )
-
                     }
                 } else {
 
@@ -178,4 +181,5 @@ fun SampleBox(modifier: Modifier, title : String, fontSize: TextUnit) {
     }
 
 }
+
 

@@ -8,7 +8,7 @@ import androidx.compose.ui.window.ComposeViewport
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.events.Event
-import screens.App
+import App
 
 fun pxToDp(px: Double): Dp = (px / window.devicePixelRatio).dp
 

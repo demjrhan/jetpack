@@ -1,4 +1,4 @@
-package screens
+package components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,7 +27,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TopBar(title : String, fontSize: TextUnit) {
+fun TopBar(title: String, fontSize: TextUnit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,7 +47,7 @@ fun TopBar(title : String, fontSize: TextUnit) {
 }
 
 @Composable
-fun BottomBar(title : String, fontSize: TextUnit) {
+fun BottomBar(title: String, fontSize: TextUnit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -68,7 +69,7 @@ fun BottomBar(title : String, fontSize: TextUnit) {
 
 
 @Composable
-fun NavigationBar(navBarWidth: Dp, showNavBar: Boolean, onClick: () -> Unit, fontSize : TextUnit ) {
+fun NavigationBar(navBarWidth: Dp, showNavBar: Boolean, onClick: () -> Unit, fontSize: TextUnit) {
     Box(
         modifier = Modifier
             .width(navBarWidth)
