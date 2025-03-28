@@ -27,6 +27,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -63,51 +66,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             TestingTheme {
 
-            }
-        }
-    }
-}
-
-
-
-@Composable
-fun RememberMe(
-    screenWidth: Dp,
-    screenHeight: Dp,
-    isMobile: Boolean ,
-    title: String,
-    holderValue: String ,
-    fontSize: TextUnit ,
-    color: Color,
-    padding: Dp ,
-    onValueChange: (Boolean) -> Unit
-) {
-    BoxWithConstraints(modifier = Modifier
-        .fillMaxWidth(0.5f)
-        .height(25.dp)) {
-        if (isMobile) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black),
-                contentAlignment = Alignment.Center
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(14.dp)
-                            .clip(RoundedCornerShape(25))
-                            .border(
-                                width = 1.dp,
-                                color = Color.LightGray.copy(alpha = 0.7f),
-                                shape = RoundedCornerShape(25)
-                            )
-                    )
-                }
             }
         }
     }

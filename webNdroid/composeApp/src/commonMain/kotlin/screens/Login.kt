@@ -16,8 +16,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -35,13 +36,12 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.resources.painterResource
+import components.GenericBigButton
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Preview
@@ -50,7 +50,8 @@ fun LoginPage(screenWidth: Dp, screenHeight: Dp) {
     val isMobile = screenWidth < 600.dp
     val fontSize = if (isMobile) 14.sp else 22.sp
     val padding = if (isMobile) 12.dp else 18.dp
-    val color = Color.White;
+    val normalColor = Color.White;
+    val contrastColor = Color(0xFFF87E2B);
     val alpha = 0.7f
     /* Create box size of full screen and make a half of screen sized padding to make box on bottom.*/
     Box(modifier = Modifier.fillMaxSize().background(Color(0xFFF5E1))) {
@@ -62,7 +63,8 @@ fun LoginPage(screenWidth: Dp, screenHeight: Dp) {
                 isMobile = isMobile,
                 fontSize = fontSize,
                 padding = padding,
-                color = color,
+                normalColor = normalColor,
+                contrastColor = contrastColor,
                 alpha = alpha
             )
         }
@@ -78,7 +80,8 @@ fun CredentialsBox(
     isMobile: Boolean,
     fontSize: TextUnit,
     padding: Dp,
-    color: Color,
+    normalColor: Color,
+    contrastColor: Color,
     alpha: Float
 ) {
     var email by remember {
@@ -103,7 +106,7 @@ fun CredentialsBox(
                         title = "Email",
                         holderValue = "Enter your email address",
                         fontSize = fontSize,
-                        color = color,
+                        color = normalColor,
                         padding = padding,
                         onValueChange = { email = it },
                         icon = null,
@@ -113,7 +116,7 @@ fun CredentialsBox(
                     /* Horizontal bar to divide areas */
                     HorizontalDivider(
                         thickness = 1.dp,
-                        color = color,
+                        color = normalColor,
                         modifier = Modifier.padding(horizontal = padding)
                     )
 
@@ -127,7 +130,7 @@ fun CredentialsBox(
                         title = "Password",
                         holderValue = "Enter password",
                         fontSize = fontSize,
-                        color = color,
+                        color = normalColor,
                         padding = padding,
                         onValueChange = { email = it },
                         icon = Icons.Default.Refresh,
@@ -137,15 +140,40 @@ fun CredentialsBox(
                     /* Horizontal bar to divide areas */
                     HorizontalDivider(
                         thickness = 1.dp,
-                        color = color,
+                        color = normalColor,
                         modifier = Modifier.padding(horizontal = padding)
                     )
 
                     /* Spacer to have some gap between components. */
                     Spacer(Modifier.padding(bottom = padding))
 
-                    /* Remember me box */
-                    RememberMe(color = color, isMobile = isMobile, padding = padding, alpha = alpha, fontSize = fontSize)
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        /* Remember me box */
+                        RememberMe(
+                            color = normalColor,
+                            isMobile = isMobile,
+                            padding = padding,
+                            alpha = alpha,
+                            fontSize = fontSize
+                        )
+
+                        /* Forgot password box */
+                        ForgotPassword(
+                            color = contrastColor,
+                            isMobile = isMobile,
+                            padding = padding,
+                            fontSize = fontSize
+                        )
+                    }
+                    /* Spacer to have some gap between components. */
+                    Spacer(Modifier.padding(bottom = padding*3))
+
+                    /* Big button for access login,signup etc. */
+                    GenericBigButton(
+                        text = "Login",
+                        contrastColor = contrastColor,
+                        fontSize = fontSize
+                    )
 
                 }
 
@@ -247,8 +275,7 @@ fun RememberMe(
         if (isMobile) {
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black),
+                    .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 Row(
@@ -267,7 +294,7 @@ fun RememberMe(
                             )
                     )
                     Spacer(Modifier.padding(start = padding))
-                    Text (
+                    Text(
                         text = "Remember me",
                         fontSize = fontSize,
                         color = color,
@@ -278,3 +305,35 @@ fun RememberMe(
         }
     }
 }
+
+@Composable
+fun ForgotPassword(
+    isMobile: Boolean,
+    color: Color,
+    padding: Dp,
+    fontSize: TextUnit,
+) {
+    BoxWithConstraints(
+        modifier = Modifier
+            .height(25.dp)
+    ) {
+        if (isMobile) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(end = padding),
+                contentAlignment = Alignment.CenterEnd,
+
+                ) {
+                Text(
+                    text = "Forgot Password?",
+                    fontWeight = FontWeight.Bold,
+                    color = color,
+                    fontSize = fontSize,
+                )
+
+            }
+        }
+    }
+}
+
