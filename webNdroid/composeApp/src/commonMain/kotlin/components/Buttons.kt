@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -60,7 +61,7 @@ fun ToggleButton(showNavBar: Boolean, onClick: () -> Unit) {
 
 @Composable
 fun GenericBigButton(
-    contrastColor: Color, fontSize: TextUnit, text: String
+    contrastColor: Color, fontSize: TextUnit, text: String, fontFamily: FontFamily
 ) {
     Box(
         modifier = Modifier.fillMaxWidth().height(42.dp), contentAlignment = Alignment.Center
@@ -75,7 +76,7 @@ fun GenericBigButton(
             modifier = Modifier.fillMaxWidth(0.87f).fillMaxHeight(0.9f)
         ) {
             Text(
-                text = text, fontSize = fontSize
+                text = text, fontSize = fontSize, fontFamily = fontFamily
             )
         }
     }
