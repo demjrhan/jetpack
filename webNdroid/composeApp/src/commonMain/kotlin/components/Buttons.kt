@@ -3,6 +3,7 @@ package components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -61,23 +62,46 @@ fun ToggleButton(showNavBar: Boolean, onClick: () -> Unit) {
 
 @Composable
 fun GenericBigButton(
-    contrastColor: Color, fontSize: TextUnit, text: String, fontFamily: FontFamily
+    contrastColor: Color, fontSize: TextUnit, text: String, fontFamily: FontFamily, isMobile:Boolean
 ) {
-    Box(
-        modifier = Modifier.fillMaxWidth().height(42.dp), contentAlignment = Alignment.Center
-    ) {
+    BoxWithConstraints {
+        if(isMobile){
+            Box(
+                modifier = Modifier.fillMaxWidth().height(42.dp), contentAlignment = Alignment.Center
+            ) {
 
-        Button(
-            onClick = { /* TODO */ },
-            shape = RoundedCornerShape(25.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = contrastColor
-            ),
-            modifier = Modifier.fillMaxWidth(0.87f).fillMaxHeight(0.9f)
-        ) {
-            Text(
-                text = text, fontSize = fontSize, fontFamily = fontFamily
-            )
+                Button(
+                    onClick = { /* TODO */ },
+                    shape = RoundedCornerShape(25.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = contrastColor
+                    ),
+                    modifier = Modifier.fillMaxWidth(0.87f).fillMaxHeight(0.9f)
+                ) {
+                    Text(
+                        text = text, fontSize = fontSize, fontFamily = fontFamily
+                    )
+                }
+            }
+        }else {
+            Box(
+                modifier = Modifier.fillMaxWidth().height(52.dp), contentAlignment = Alignment.Center
+            ) {
+
+                Button(
+                    onClick = { /* TODO */ },
+                    shape = RoundedCornerShape(25.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = contrastColor
+                    ),
+                    modifier = Modifier.fillMaxWidth(0.87f).fillMaxHeight(0.9f)
+                ) {
+                    Text(
+                        text = text, fontSize = fontSize, fontFamily = fontFamily
+                    )
+                }
+            }
         }
     }
+
 }
