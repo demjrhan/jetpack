@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -45,20 +46,43 @@ import androidx.compose.ui.unit.sp
 import components.GenericBigButton
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+data class ResponsiveUi(
+    val screenHeight: Dp,
+    val screenWidth: Dp,
+    val isMobile: Boolean,
+    val fontSize: TextUnit,
+    val padding: Dp,
+    val textColor: Color,
+    val backgroundColor: Color,
+    val contrastColor: Color,
+    val alpha: Float,
+    val fontFamily: FontFamily
+)
+
+fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
+    val isMobile = screenWidth < 600.dp
+    return ResponsiveUi(
+        screenHeight = screenHeight,
+        screenWidth = screenWidth,
+        isMobile = isMobile,
+        fontSize = if (isMobile) 14.sp else 20.sp,
+        padding = if (isMobile) 12.dp else 18.dp,
+        textColor = Color.White,
+        backgroundColor = Color.Black,
+        contrastColor = Color(0xFFF87E2B),
+        alpha = 0.5f,
+        fontFamily = FontFamily.SansSerif
+    )
+}
+
 @Preview
 @Composable
 fun LoginPage(screenWidth: Dp, screenHeight: Dp) {
-    val isMobile = screenWidth < 600.dp
-    val fontSize = if (isMobile) 14.sp else 22.sp
-    val padding = if (isMobile) 12.dp else 18.dp
-    val textColor = Color.White;
-    val backgroundColor = Color.Black;
-    val contrastColor = Color(0xFFF87E2B);
-    val alpha = 0.5f
-    val fontFamily = FontFamily.SansSerif
+    val ui = createResponsiveUi(screenWidth, screenHeight)
+
 
     BoxWithConstraints {
-        if (isMobile) {
+        if (ui.isMobile) {
             /* Create box size of full screen and make a half of screen sized padding to make box on bottom.*/
             Box(modifier = Modifier.fillMaxSize().background(Color(0xFFF5E1))) {
                 Column(modifier = Modifier.fillMaxSize()) {
@@ -66,14 +90,14 @@ fun LoginPage(screenWidth: Dp, screenHeight: Dp) {
                         PageTitle(
                             screenWidth = screenWidth,
                             screenHeight = screenHeight,
-                            isMobile = isMobile,
-                            fontSize = fontSize,
-                            padding = padding,
-                            textColor = textColor,
-                            backgroundColor = backgroundColor,
-                            contrastColor = contrastColor,
-                            alpha = alpha,
-                            fontFamily = fontFamily,
+                            isMobile = ui.isMobile,
+                            fontSize = ui.fontSize,
+                            padding = ui.padding,
+                            textColor = ui.textColor,
+                            backgroundColor = ui.backgroundColor,
+                            contrastColor = ui.contrastColor,
+                            alpha = ui.alpha,
+                            fontFamily = ui.fontFamily,
                             title = "Login"
                         )
                     }
@@ -83,21 +107,24 @@ fun LoginPage(screenWidth: Dp, screenHeight: Dp) {
                         CredentialsBox(
                             screenWidth = screenWidth,
                             screenHeight = screenHeight,
-                            isMobile = isMobile,
-                            fontSize = fontSize,
-                            padding = padding,
-                            backgroundColor = backgroundColor,
-                            textColor = textColor,
-                            contrastColor = contrastColor,
-                            alpha = alpha,
-                            fontFamily = fontFamily,
+                            isMobile = ui.isMobile,
+                            fontSize = ui.fontSize,
+                            padding = ui.padding,
+                            backgroundColor = ui.backgroundColor,
+                            textColor = ui.textColor,
+                            contrastColor = ui.contrastColor,
+                            alpha = ui.alpha,
+                            fontFamily = ui.fontFamily,
                         )
                     }
 
                 }
 
             }
+        } else {
+            /* TODO */
         }
+
     }
 }
 
@@ -115,23 +142,28 @@ fun PageTitle(
     fontFamily: FontFamily,
     title: String
 ) {
-    val titleSize = if (isMobile) 45.sp else 55.sp
-    BoxWithConstraints() {
+    val titleSize = if (isMobile) 45.sp else 30.sp  // smaller for web
+    BoxWithConstraints {
+        TopBubbles(
+            contrastColor = contrastColor,
+            backgroundColor = backgroundColor,
+            isMobile = isMobile
+        )
 
-        TopBubbles(contrastColor = contrastColor, backgroundColor = backgroundColor )
         if (isMobile) {
             Box(
-                modifier = Modifier.fillMaxSize().clip(
-                    RoundedCornerShape(bottomStart = 35.dp, bottomEnd = 35.dp)
-                )
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(bottomStart = 35.dp, bottomEnd = 35.dp))
                     .padding(top = padding * 4, bottom = padding, start = padding, end = padding)
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth().height(150.dp).align(Alignment.Center)
-                        .offset(
-                            0.dp,
-                            (-90).dp
-                        ), contentAlignment = Alignment.Center
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                        .align(Alignment.Center)
+                        .offset(0.dp, (-90).dp),
+                    contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = title,
@@ -141,12 +173,14 @@ fun PageTitle(
                         fontSize = titleSize,
                         fontWeight = FontWeight.Bold
                     )
-
                 }
             }
+        } else {                /* TODO */
+
         }
     }
 }
+
 
 @Composable
 fun CredentialsBox(
@@ -275,6 +309,9 @@ fun CredentialsBox(
                 }
 
             }
+        } else {
+
+            /* TODO */
         }
     }
 
@@ -328,7 +365,8 @@ fun CredentialArea(
                             BasicTextField(
                                 textStyle = TextStyle(
                                     color = color,
-                                    fontFamily = FontFamily.SansSerif
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontSize = fontSize
                                 ),
                                 modifier = Modifier.padding(top = padding / 2, start = padding)
                                     .alpha(alpha),
@@ -356,6 +394,8 @@ fun CredentialArea(
 
                 }
             }
+        } else {
+            /* TODO */
         }
     }
 }
@@ -406,6 +446,9 @@ fun RememberMe(
                     )
                 }
             }
+        } else {
+            /* TODO */
+
         }
     }
 }
@@ -439,6 +482,8 @@ fun ForgotPassword(
                 )
 
             }
+        } else {
+            /* TODO */
         }
     }
 }
@@ -489,6 +534,8 @@ fun SignUpNavigation(
                 }
 
             }
+        } else {
+            /* TODO */
         }
     }
 }
@@ -497,36 +544,45 @@ fun SignUpNavigation(
 fun TopBubbles(
     backgroundColor: Color,
     contrastColor: Color,
-){
-    Box(
-        modifier = Modifier
-            .size(400.dp)
-            .offset(-(120.dp),-(180.dp))
-            .graphicsLayer {
-                rotationY = 15f
+    isMobile: Boolean
+) {
+    BoxWithConstraints {
+        if (isMobile) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+                Box(
+                    modifier = Modifier
+                        .size(400.dp)
+                        .offset(-(120.dp), -(180.dp))
+                        .graphicsLayer {
+                            rotationY = 15f
+                        }
+                        .clip(RoundedCornerShape(88.dp))
+                        .background(backgroundColor)
+                )
+                Box(
+                    modifier = Modifier
+                        .size(400.dp)
+                        .offset(50.dp, -(190.dp))
+                        .graphicsLayer {
+                            rotationZ = 15f
+                        }
+                        .clip(RoundedCornerShape(88.dp))
+                        .background(backgroundColor)
+                )
+                Box(
+                    modifier = Modifier
+                        .size(400.dp)
+                        .offset(0.dp, -(200.dp))
+                        .graphicsLayer {
+                            rotationZ = 15f
+                        }
+                        .clip(RoundedCornerShape(88.dp))
+                        .background(contrastColor)
+                )
             }
-            .clip(RoundedCornerShape(88.dp))
-            .background(backgroundColor)
-    )
-    Box(
-        modifier = Modifier
-            .size(400.dp)
-            .offset(50.dp,-(190.dp))
-            .graphicsLayer {
-                rotationZ = 15f
-            }
-            .clip(RoundedCornerShape(88.dp))
-            .background(backgroundColor)
-    )
-    Box(
-        modifier = Modifier
-            .size(400.dp)
-            .offset(0.dp,-(200.dp))
-            .graphicsLayer {
-                rotationZ = 15f
-            }
-            .clip(RoundedCornerShape(88.dp))
-            .background(contrastColor)
-    )
+        } else {                /* TODO */
+
+        }
+    }
 
 }
