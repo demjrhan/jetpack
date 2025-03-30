@@ -10,10 +10,7 @@ import kotlinx.browser.window
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    val screenWidth: Dp = window.innerWidth.dp
-    val screenHeight: Dp = window.innerHeight.dp
-
     ComposeViewport(document.body!!) {
-        App(screenWidth, screenHeight)
+        App()
     }
 }

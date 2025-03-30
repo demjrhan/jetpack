@@ -63,14 +63,14 @@ data class ResponsiveUi(
 )
 
 fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
-    val isMobile = screenWidth < 600.dp
+    val isMobile = screenWidth < 800.dp
     return ResponsiveUi(
         screenHeight = screenHeight,
         screenWidth = screenWidth,
         isMobile = isMobile,
-        fontSize = if (isMobile) 14.sp else 20.sp,
-        padding = if (isMobile) 12.dp else 15.dp,
-        iconSize = if (isMobile) 16.dp else 20.dp,
+        fontSize = if (isMobile) 14.sp else 18.sp,
+        padding = if (isMobile) 12.dp else 14.dp,
+        iconSize = if (isMobile) 14.dp else 18.dp,
         textColor = Color.White,
         backgroundColor = Color.Black,
         contrastColor = Color(0xFFF87E2B),
@@ -81,11 +81,14 @@ fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
 
 @Preview
 @Composable
-fun LoginPage(screenWidth: Dp, screenHeight: Dp) {
-    val ui = createResponsiveUi(screenWidth, screenHeight)
+fun LoginPage() {
+
 
 
     BoxWithConstraints() {
+        val screenWidth = maxWidth
+        val screenHeight = maxHeight
+        val ui = createResponsiveUi(screenWidth, screenHeight)
         if (ui.isMobile) {
             /* Create box size of full screen and make a half of screen sized padding to make box on bottom.*/
             Box(modifier = Modifier.fillMaxSize().background(Color(0xFFF5E1))) {
@@ -391,14 +394,14 @@ fun CredentialsBox(
             }
         } else {
             Box(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.9f).clip(
+                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.95f).clip(
                     RoundedCornerShape(15)
                 ).background(Color.Black)
                     .padding(
-                        top = padding * 7,
+                        top = padding * 2,
                         bottom = padding,
-                        start = padding + 15.dp,
-                        end = padding + 15.dp
+                        start = padding,
+                        end = padding
                     )
             ) {
                 /* Column to make multiple filling areas inside of the box. */
@@ -476,7 +479,7 @@ fun CredentialsBox(
                         )
                     }
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(padding * 3))
+                    Spacer(Modifier.padding(padding * 2))
 
                     /* Big button for access login,signup etc. */
                     GenericBigButton(
@@ -843,7 +846,7 @@ fun SignUpNavigation(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Don't have on account?",
+                        text = "Don't have an account?",
                         color = textColor,
                         fontSize = fontSize,
                         fontFamily = fontFamily,
@@ -873,12 +876,13 @@ fun TopBubbles(
     BoxWithConstraints {
         if (isMobile) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-                /* Left Black Box */
 
+                /* Left Black Box */
                 Box(
                     modifier = Modifier
-                        .size(400.dp)
-                        .offset(-(120.dp), -(180.dp))
+                        .height(400.dp)
+                        .width(320.dp)
+                        .offset(-(25.dp), -(180.dp))
                         .graphicsLayer {
                             rotationY = 15f
                         }
@@ -899,8 +903,9 @@ fun TopBubbles(
                 /*Orange Box*/
                 Box(
                     modifier = Modifier
-                        .size(400.dp)
-                        .offset(y = -(200.dp))
+                        .width(320.dp)
+                        .height(400.dp)
+                        .offset(x = 20.dp, y = -(180.dp))
                         .graphicsLayer {
                             rotationZ = 15f
                         }
@@ -913,7 +918,7 @@ fun TopBubbles(
                 /* Left Black Box */
                 Box(
                     modifier = Modifier
-                        .size(700.dp)
+                        .size(500.dp)
                         .offset(-(120.dp), -(180.dp))
                         .graphicsLayer {
                             rotationY = 15f
@@ -924,7 +929,7 @@ fun TopBubbles(
                 /* Right Black Box */
                 Box(
                     modifier = Modifier
-                        .size(700.dp)
+                        .size(500.dp)
                         .offset(120.dp, -(190.dp))
                         .graphicsLayer {
                             rotationZ = 15f
@@ -935,7 +940,7 @@ fun TopBubbles(
                 /*Orange Box*/
                 Box(
                     modifier = Modifier
-                        .size(700.dp)
+                        .size(500.dp)
                         .offset(y = -(200.dp))
                         .graphicsLayer {
                             rotationZ = 15f
