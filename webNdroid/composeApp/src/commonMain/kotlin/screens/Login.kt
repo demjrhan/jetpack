@@ -56,8 +56,6 @@ fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
 @Preview
 @Composable
 fun Login() {
-
-
     BoxWithConstraints() {
         val screenWidth = maxWidth
         val screenHeight = maxHeight
