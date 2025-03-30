@@ -46,8 +46,6 @@ fun SignUp() {
 
                     Box(modifier = Modifier.weight(1f)) {
                         CredentialsBox(
-                            screenWidth = screenWidth,
-                            screenHeight = screenHeight,
                             isMobile = ui.isMobile,
                             fontSize = ui.fontSize,
                             padding = ui.padding,
@@ -97,8 +95,6 @@ fun SignUp() {
 
                         Box(modifier = Modifier.weight(1f)) {
                             CredentialsBox(
-                                screenWidth = screenWidth,
-                                screenHeight = screenHeight,
                                 isMobile = ui.isMobile,
                                 fontSize = ui.fontSize,
                                 padding = ui.padding,

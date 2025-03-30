@@ -30,8 +30,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CredentialsBox(
-    screenWidth: Dp,
-    screenHeight: Dp,
     isMobile: Boolean,
     fontSize: TextUnit,
     padding: Dp,
@@ -66,8 +64,6 @@ fun CredentialsBox(
                 /* Column to make multiple filling areas inside of the box. */
                 Column(modifier = Modifier.fillMaxSize()) {
                     CredentialArea(
-                        screenWidth,
-                        screenHeight,
                         isMobile,
                         title = firstBoxTitle,
                         holderValue = firstBoxHolderValue,
@@ -92,8 +88,6 @@ fun CredentialsBox(
                     Spacer(Modifier.padding(bottom = padding))
 
                     CredentialArea(
-                        screenWidth,
-                        screenHeight,
                         isMobile,
                         title = secondBoxTitle,
                         holderValue = secondBoxHolderValue,
@@ -186,8 +180,6 @@ fun CredentialsBox(
                 /* Column to make multiple filling areas inside of the box. */
                 Column(modifier = Modifier.fillMaxSize()) {
                     CredentialArea(
-                        screenWidth,
-                        screenHeight,
                         isMobile,
                         title = firstBoxTitle,
                         holderValue = firstBoxHolderValue,
@@ -212,8 +204,6 @@ fun CredentialsBox(
                     Spacer(Modifier.padding(bottom = padding))
 
                     CredentialArea(
-                        screenWidth,
-                        screenHeight,
                         isMobile,
                         title = secondBoxTitle,
                         holderValue = secondBoxHolderValue,

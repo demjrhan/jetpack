@@ -35,8 +35,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 @Composable
 fun CredentialArea(
-    screenWidth: Dp,
-    screenHeight: Dp,
     isMobile: Boolean,
     title: String,
     iconSize: Dp,
@@ -83,6 +81,7 @@ fun CredentialArea(
                                     fontFamily = FontFamily.SansSerif,
                                     fontSize = fontSize
                                 ),
+                                maxLines = 1,
                                 modifier = Modifier.alpha(alpha),
                                 value = holderValue, onValueChange = { text = it },
                                 cursorBrush = SolidColor(Color.Unspecified),
@@ -136,6 +135,7 @@ fun CredentialArea(
                                     fontFamily = FontFamily.SansSerif,
                                     fontSize = fontSize
                                 ),
+                                maxLines = 1,
                                 modifier = Modifier.alpha(alpha),
                                 value = holderValue, onValueChange = { text = it },
                                 cursorBrush = SolidColor(Color.Unspecified),
