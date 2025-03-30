@@ -11,51 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import components.CredentialsBox
 import components.PageTitle
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-data class ResponsiveUi(
-    val screenHeight: Dp,
-    val screenWidth: Dp,
-    val isMobile: Boolean,
-    val fontSize: TextUnit,
-    val iconSize: Dp,
-    val padding: Dp,
-    val textColor: Color,
-    val titleSize: TextUnit,
-    val backgroundColor: Color,
-    val contrastColor: Color,
-    val alpha: Float,
-    val fontFamily: FontFamily
-)
-
-fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
-    val isMobile = screenWidth < 800.dp
-    return ResponsiveUi(
-        screenHeight = screenHeight,
-        screenWidth = screenWidth,
-        isMobile = isMobile,
-        fontSize = if (isMobile) 14.sp else 18.sp,
-        padding = if (isMobile) 12.dp else 14.dp,
-        iconSize = if (isMobile) 14.dp else 18.dp,
-        titleSize = if (isMobile) 45.sp else 90.sp,
-        textColor = Color.White,
-        backgroundColor = Color.Black,
-        contrastColor = Color(0xFFF87E2B),
-        alpha = 0.5f,
-        fontFamily = FontFamily.SansSerif
-    )
-}
 
 @Preview
 @Composable
-fun Login() {
+fun SignUp() {
+
 
 
     BoxWithConstraints() {
@@ -71,10 +35,10 @@ fun Login() {
                             isMobile = ui.isMobile,
                             padding = ui.padding,
                             textColor = ui.textColor,
-                            backgroundColor = ui.backgroundColor,
-                            contrastColor = ui.contrastColor,
+                            backgroundColor = ui.contrastColor,
+                            contrastColor = ui.backgroundColor,
                             fontFamily = ui.fontFamily,
-                            title = "Login",
+                            title = "Sign Up",
                             titleSize = ui.titleSize
                         )
                     }
@@ -93,14 +57,14 @@ fun Login() {
                             fontFamily = ui.fontFamily,
                             iconSize = ui.iconSize,
                             firstBoxTitle = "Email",
-                            firstBoxHolderValue = "Enter y our email address",
+                            firstBoxHolderValue = "Enter your email address",
                             secondBoxTitle = "Password",
                             secondBoxHolderValue = "Enter password",
-                            buttonText = "Login",
-                            navigationSentence = "Don't have account?",
-                            navigationHighlightSentence = "Sign up!",
-                            isLogin = true,
-                            isSignUp = false
+                            buttonText = "Sign up",
+                            navigationSentence = "Already have an account?",
+                            navigationHighlightSentence = "Login!",
+                            isSignUp = true,
+                            isLogin = false
                         )
                     }
 
@@ -122,10 +86,10 @@ fun Login() {
                                 isMobile = ui.isMobile,
                                 padding = ui.padding,
                                 textColor = ui.textColor,
-                                backgroundColor = ui.backgroundColor,
-                                contrastColor = ui.contrastColor,
+                                backgroundColor = ui.contrastColor,
+                                contrastColor = ui.backgroundColor,
                                 fontFamily = ui.fontFamily,
-                                title = "Login",
+                                title = "Sign Up",
                                 titleSize = ui.titleSize
                             )
                         }
@@ -147,11 +111,12 @@ fun Login() {
                                 firstBoxHolderValue = "Enter your email address",
                                 secondBoxTitle = "Password",
                                 secondBoxHolderValue = "Enter password",
-                                buttonText = "Login",
-                                navigationSentence = "Don't have account?",
-                                navigationHighlightSentence = "Sign up!",
-                                isLogin = true,
-                                isSignUp = false
+                                buttonText = "Sign up",
+                                navigationSentence = "Already have an account?",
+                                navigationHighlightSentence = "Login!",
+                                isSignUp = true,
+                                isLogin = false
+
                             )
                         }
 
