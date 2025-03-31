@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import components.CredentialsBox
 import components.PageTitle
+import models.createResponsiveUi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
