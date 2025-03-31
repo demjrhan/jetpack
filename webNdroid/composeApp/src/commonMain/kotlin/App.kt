@@ -1,5 +1,6 @@
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import screens.Home
 import screens.Login
 import screens.SignUp
 
@@ -7,7 +8,7 @@ import screens.SignUp
 @Preview
 @Composable
 fun App() {
-   Login()
+   Home()
 }
 
 

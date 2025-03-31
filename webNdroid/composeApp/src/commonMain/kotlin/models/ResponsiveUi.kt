@@ -19,7 +19,9 @@ data class ResponsiveUi(
     val backgroundColor: Color,
     val contrastColor: Color,
     val alpha: Float,
-    val fontFamily: FontFamily
+    val fontFamily: FontFamily,
+    val footerColor: Color,
+    val headerColor: Color
 )
 
 
@@ -37,6 +39,8 @@ fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
         backgroundColor = Color.Black,
         contrastColor = Color(0xFFF87E2B),
         alpha = 0.5f,
-        fontFamily = FontFamily.SansSerif
+        fontFamily = FontFamily.SansSerif,
+        footerColor = Color.White,
+        headerColor = Color.White
     )
 }
