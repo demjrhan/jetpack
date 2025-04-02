@@ -1,8 +1,10 @@
 package models
 
+import androidx.compose.foundation.background
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import components.MobileSideBar
 import components.WebSidebar
 import kotlinx.coroutines.CoroutineScope
@@ -34,6 +36,6 @@ fun MobileScaffold(
         drawerContent = {
             MobileSideBar(ui = ui)
         },
-        content = content,
+        content = content
     )
 }
