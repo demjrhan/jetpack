@@ -21,12 +21,18 @@ data class ResponsiveUi(
     val alpha: Float,
     val fontFamily: FontFamily,
     val footerColor: Color,
-    val headerColor: Color
+    val headerColor: Color,
+    val navigationBarWidth: Dp
 )
 
 
 fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
     val isMobile = screenWidth < 800.dp
+    val navigationBarWidth = when {
+        screenWidth < 800.dp -> 0.dp
+        screenWidth < 1200.dp -> 180.dp
+        else -> 240.dp
+    }
     return ResponsiveUi(
         screenHeight = screenHeight,
         screenWidth = screenWidth,
@@ -34,13 +40,14 @@ fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
         fontSize = if (isMobile) 14.sp else 18.sp,
         padding = if (isMobile) 12.dp else 14.dp,
         iconSize = if (isMobile) 14.dp else 18.dp,
-        titleSize = if (isMobile) 45.sp else 90.sp,
+        titleSize = if (isMobile) 70.sp else 90.sp,
         textColor = Color.White,
         backgroundColor = Color.Black,
         contrastColor = Color(0xFFF87E2B),
         alpha = 0.5f,
         fontFamily = FontFamily.SansSerif,
         footerColor = Color.White,
-        headerColor = Color.White
+        headerColor = Color.White,
+        navigationBarWidth = navigationBarWidth
     )
 }

@@ -38,6 +38,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
+            implementation("com.github.skydoves:landscapist-coil3:$version")
+
         }
     }
 }
