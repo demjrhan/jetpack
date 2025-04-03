@@ -1,11 +1,16 @@
 package components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import models.ResponsiveUi
 import org.jetbrains.compose.resources.painterResource
 import webndroid.composeapp.generated.resources.Res
@@ -13,24 +18,27 @@ import webndroid.composeapp.generated.resources.android_background
 import webndroid.composeapp.generated.resources.web_background
 
 @Composable
-fun MobileHomeContent(ui: ResponsiveUi){
-    Box(modifier = Modifier.fillMaxSize()){
-        Image(
-            painter = painterResource(Res.drawable.android_background),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
+fun MobileHomeContent(ui: ResponsiveUi, modifier: Modifier){
+
+    val listState = rememberLazyListState()
+    Box(modifier = modifier.fillMaxSize().paint(
+        painter = painterResource(Res.drawable.android_background),
+        contentScale = ContentScale.Crop
+    )){
+        LazyColumn(state = listState, modifier = modifier.fillMaxSize()){
+            item { ContentBox(ui, height = 300.dp) }
+            item { ContentBox(ui, height = 300.dp) }
+            item { ContentBox(ui, height = 300.dp) }
+        }
+
     }
 }
 @Composable
-fun WebHomeContent(ui: ResponsiveUi){
-    Box(modifier = Modifier.fillMaxSize()){
-        Image(
-            painter = painterResource(Res.drawable.web_background),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
+fun WebHomeContent(ui: ResponsiveUi, modifier: Modifier){
+    Box(modifier = modifier.fillMaxSize().paint(
+        painter = painterResource(Res.drawable.web_background),
+        contentScale = ContentScale.Crop
+    )){
+
     }
 }

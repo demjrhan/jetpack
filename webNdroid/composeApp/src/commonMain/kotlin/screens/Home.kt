@@ -69,8 +69,9 @@ fun Home() {
                             colors = TopAppBarDefaults.topAppBarColors(containerColor = ui.backgroundColor),
                         )
                     },
-                    content = {
-                        MobileHomeContent(ui = ui)
+                    content = { innerPadding ->
+                            MobileHomeContent(ui = ui,  modifier = Modifier.padding(innerPadding))
+
                     }
                 )
             }
@@ -92,9 +93,9 @@ fun Home() {
 
                         )
                     },
-                    content = {
+                    content = { innerPadding ->
 
-                        WebHomeContent(ui = ui)
+                        WebHomeContent(ui = ui, modifier = Modifier.padding(innerPadding))
                     }
                 )
             }
