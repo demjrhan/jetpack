@@ -22,7 +22,9 @@ data class ResponsiveUi(
     val fontFamily: FontFamily,
     val footerColor: Color,
     val headerColor: Color,
-    val navigationBarWidth: Dp
+    val checkBoxColor: Color,
+    val navigationBarWidth: Dp,
+    val roundedCorner: Dp
 )
 
 
@@ -48,6 +50,8 @@ fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
         fontFamily = FontFamily.SansSerif,
         footerColor = Color.White,
         headerColor = Color.White,
-        navigationBarWidth = navigationBarWidth
+        checkBoxColor = Color.White,
+        navigationBarWidth = navigationBarWidth,
+        roundedCorner = 35.dp
     )
 }

@@ -26,18 +26,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import models.ResponsiveUi
 
 
 @Composable
 fun CredentialsBox(
-    isMobile: Boolean,
-    fontSize: TextUnit,
-    padding: Dp,
-    textColor: Color,
-    contrastColor: Color,
-    alpha: Float,
-    fontFamily: FontFamily,
-    iconSize: Dp,
     firstBoxTitle: String,
     firstBoxHolderValue: String,
     secondBoxTitle: String,
@@ -47,6 +40,7 @@ fun CredentialsBox(
     navigationHighlightSentence: String,
     isSignUp: Boolean,
     isLogin: Boolean,
+    ui: ResponsiveUi
 ) {
     var email by remember {
         mutableStateOf("")
@@ -54,109 +48,83 @@ fun CredentialsBox(
 
     /* Create a box sized differently depending on the platform. */
     BoxWithConstraints() {
-        if (isMobile) {
+        if (ui.isMobile) {
             Box(
                 modifier = Modifier.fillMaxSize().clip(
-                    RoundedCornerShape(topStart = 35.dp, topEnd = 35.dp)
+                    RoundedCornerShape(topStart = ui.roundedCorner, topEnd = ui.roundedCorner)
                 ).background(Color.Black)
-                    .padding(top = padding * 4, bottom = padding, start = padding, end = padding)
+                    .padding(
+                        top = ui.padding * 4,
+                        bottom = ui.padding,
+                        start = ui.padding,
+                        end = ui.padding
+                    )
             ) {
                 /* Column to make multiple filling areas inside of the box. */
                 Column(modifier = Modifier.fillMaxSize()) {
                     CredentialArea(
-                        isMobile,
+                        ui = ui,
                         title = firstBoxTitle,
                         holderValue = firstBoxHolderValue,
-                        fontSize = fontSize,
-                        color = textColor,
-                        padding = padding,
                         onValueChange = { email = it },
-                        icon = null,
-                        alpha = alpha,
-                        fontFamily = fontFamily,
-                        iconSize = iconSize
-
+                        icon = null
                     );
                     /* Horizontal bar to divide areas */
                     HorizontalDivider(
                         thickness = 1.dp,
-                        color = textColor,
-                        modifier = Modifier.padding(horizontal = padding)
+                        color = ui.textColor,
+                        modifier = Modifier.padding(horizontal = ui.padding)
                     )
 
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(bottom = padding))
+                    Spacer(Modifier.padding(bottom = ui.padding))
 
                     CredentialArea(
-                        isMobile,
+                        ui = ui,
                         title = secondBoxTitle,
                         holderValue = secondBoxHolderValue,
-                        fontSize = fontSize,
-                        color = textColor,
-                        padding = padding,
                         onValueChange = { email = it },
-                        icon = Icons.Default.Refresh,
-                        alpha = alpha,
-                        fontFamily = fontFamily,
-                        iconSize = iconSize
+                        icon = Icons.Default.Refresh
 
                     );
                     /* Horizontal bar to divide areas */
                     HorizontalDivider(
                         thickness = 1.dp,
-                        color = textColor,
-                        modifier = Modifier.padding(horizontal = padding)
+                        color = ui.textColor,
+                        modifier = Modifier.padding(horizontal = ui.padding)
                     )
 
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(bottom = padding))
+                    Spacer(Modifier.padding(bottom = ui.padding))
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         if (isLogin) {
                             /* Remember me box */
                             RememberMe(
-                                color = textColor,
-                                isMobile = isMobile,
-                                padding = padding,
-                                alpha = alpha,
-                                fontSize = fontSize,
-                                fontFamily = fontFamily
+                                ui = ui
                             )
                             /* Forgot password box */
                             ForgotPassword(
-                                color = contrastColor,
-                                isMobile = isMobile,
-                                padding = padding,
-                                fontSize = fontSize,
-                                fontFamily = fontFamily
+                                ui = ui
                             )
                         }
 
                     }
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(bottom = padding * 3))
+                    Spacer(Modifier.padding(bottom = ui.padding * 3))
 
                     /* Big button for access login,signup etc. */
                     GenericBigButton(
                         text = buttonText,
-                        contrastColor = contrastColor,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        isMobile = isMobile
+                        ui = ui
                     )
 
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(bottom = padding))
+                    Spacer(Modifier.padding(bottom = ui.padding))
 
                     /* Small text under the button navigating to Sign up if user is not registered. */
                     NavigateToAuthScreen(
-                        isMobile = isMobile,
-                        textColor = textColor,
-                        contrastColor = contrastColor,
-                        padding = padding,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        alpha = alpha,
+                        ui = ui,
                         sentence = navigationSentence,
                         navigationSentence = navigationHighlightSentence
 
@@ -171,107 +139,77 @@ fun CredentialsBox(
                     RoundedCornerShape(15)
                 ).background(Color.Black)
                     .padding(
-                        top = padding * 2,
-                        bottom = padding,
-                        start = padding,
-                        end = padding
+                        top = ui.padding * 2,
+                        bottom = ui.padding,
+                        start = ui.padding,
+                        end = ui.padding
                     )
             ) {
                 /* Column to make multiple filling areas inside of the box. */
                 Column(modifier = Modifier.fillMaxSize()) {
                     CredentialArea(
-                        isMobile,
+                        ui = ui,
                         title = firstBoxTitle,
                         holderValue = firstBoxHolderValue,
-                        fontSize = fontSize,
-                        color = textColor,
-                        padding = padding,
                         onValueChange = { email = it },
                         icon = null,
-                        alpha = alpha,
-                        fontFamily = fontFamily,
-                        iconSize = iconSize
 
-                    );
+                        );
                     /* Horizontal bar to divide areas */
                     HorizontalDivider(
                         thickness = 1.dp,
-                        color = textColor,
-                        modifier = Modifier.padding(horizontal = padding)
+                        color = ui.textColor,
+                        modifier = Modifier.padding(horizontal = ui.padding)
                     )
 
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(bottom = padding))
+                    Spacer(Modifier.padding(bottom = ui.padding))
 
                     CredentialArea(
-                        isMobile,
+                        ui = ui,
                         title = secondBoxTitle,
                         holderValue = secondBoxHolderValue,
-                        fontSize = fontSize,
-                        color = textColor,
-                        padding = padding,
                         onValueChange = { email = it },
-                        icon = Icons.Default.Refresh,
-                        alpha = alpha,
-                        fontFamily = fontFamily,
-                        iconSize = iconSize
+                        icon = Icons.Default.Refresh
 
                     );
                     /* Horizontal bar to divide areas */
                     HorizontalDivider(
                         thickness = 1.dp,
-                        color = textColor,
-                        modifier = Modifier.padding(horizontal = padding)
+                        color = ui.textColor,
+                        modifier = Modifier.padding(horizontal = ui.padding)
                     )
 
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(bottom = padding))
+                    Spacer(Modifier.padding(bottom = ui.padding))
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         if (isLogin) {
                             /* Remember me box */
                             RememberMe(
-                                color = textColor,
-                                isMobile = isMobile,
-                                padding = padding,
-                                alpha = alpha,
-                                fontSize = fontSize,
-                                fontFamily = fontFamily
+                                ui = ui
                             )
                             /* Forgot password box */
                             ForgotPassword(
-                                color = contrastColor,
-                                isMobile = isMobile,
-                                padding = padding,
-                                fontSize = fontSize,
-                                fontFamily = fontFamily
+                                ui = ui
                             )
                         }
                     }
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(padding * 2))
+                    Spacer(Modifier.padding(ui.padding * 2))
 
                     /* Big button for access login,signup etc. */
                     GenericBigButton(
                         text = "Login",
-                        contrastColor = contrastColor,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        isMobile = isMobile
+                        ui = ui
                     )
 
                     /* Spacer to have some gap between components. */
-                    Spacer(Modifier.padding(bottom = padding))
+                    Spacer(Modifier.padding(bottom = ui.padding))
 
                     /* Small text under the button navigating to Sign up if user is not registered. */
                     NavigateToAuthScreen(
-                        isMobile = isMobile,
-                        textColor = textColor,
-                        contrastColor = contrastColor,
-                        padding = padding,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        alpha = alpha,
+                        ui = ui,
                         sentence = "Don't have an account?",
                         navigationSentence = "Sign up!"
 

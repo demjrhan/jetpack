@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import components.FooterMobile
 import components.MobileHomeContent
 import components.WebHomeContent
 import components.WebSidebar
@@ -54,7 +53,7 @@ fun Home() {
 
         val ui = createResponsiveUi(screenWidth, screenHeight)
         if (ui.isMobile) {
-            MobileScaffold(ui = ui, drawerState = drawerState, scope = scope){
+            MobileScaffold(ui = ui, drawerState = drawerState, scope = scope) {
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -63,14 +62,18 @@ fun Home() {
                                 IconButton(onClick = {
                                     scope.launch { drawerState.open() }
                                 }) {
-                                    Icon(Icons.Default.Menu, contentDescription = "Menu", tint = ui.contrastColor )
+                                    Icon(
+                                        Icons.Default.Menu,
+                                        contentDescription = "Menu",
+                                        tint = ui.contrastColor
+                                    )
                                 }
                             },
                             colors = TopAppBarDefaults.topAppBarColors(containerColor = ui.backgroundColor),
                         )
                     },
                     content = { innerPadding ->
-                            MobileHomeContent(ui = ui,  modifier = Modifier.padding(innerPadding))
+                        MobileHomeContent(ui = ui, innerPadding)
 
                     }
                 )
@@ -86,16 +89,19 @@ fun Home() {
                                 IconButton(onClick = {
                                     scope.launch { drawerState.open() }
                                 }) {
-                                    Icon(Icons.Default.Menu, contentDescription = "Menu", tint = ui.contrastColor )
+                                    Icon(
+                                        Icons.Default.Menu,
+                                        contentDescription = "Menu",
+                                        tint = ui.contrastColor
+                                    )
                                 }
                             },
                             colors = TopAppBarDefaults.topAppBarColors(containerColor = ui.backgroundColor),
 
-                        )
+                            )
                     },
                     content = { innerPadding ->
-
-                        WebHomeContent(ui = ui, modifier = Modifier.padding(innerPadding))
+                        WebHomeContent(ui = ui, innerPadding)
                     }
                 )
             }

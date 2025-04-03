@@ -26,26 +26,19 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import models.ResponsiveUi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /* Small box sized differently depending on the platform  containing Title and TextField for value entering. */
 @Preview
 @Composable
 fun CredentialArea(
-    isMobile: Boolean,
+    ui: ResponsiveUi,
     title: String,
-    iconSize: Dp,
     holderValue: String,
-    fontSize: TextUnit,
-    color: Color,
-    padding: Dp,
     onValueChange: (String) -> Unit,
-    icon: ImageVector?,
-    alpha: Float,
-    fontFamily: FontFamily
+    icon: ImageVector?
 ) {
 
 
@@ -54,35 +47,35 @@ fun CredentialArea(
     }
 
     BoxWithConstraints {
-        if (isMobile) {
+        if (ui.isMobile) {
             Box(modifier = Modifier.fillMaxWidth().height(65.dp)) {
                 Column(modifier = Modifier.fillMaxSize()) {
                     Text(
                         text = title,
                         fontWeight = FontWeight.Bold,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        color = color,
+                        fontSize = ui.fontSize,
+                        fontFamily = ui.fontFamily,
+                        color = ui.textColor,
                         modifier = Modifier.padding(
-                            top = padding,
-                            start = padding,
+                            top = ui.padding,
+                            start = ui.padding,
                         )
                     )
                     /* Usage of row: To be able to add icon in the end of the TextField */
                     Row(
-                        modifier = Modifier.fillMaxSize().padding(horizontal = padding),
+                        modifier = Modifier.fillMaxSize().padding(horizontal = ui.padding),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         /* Box sized 0.9f of possible area for entering value.*/
                         Box(modifier = Modifier.weight(1f)) {
                             BasicTextField(
                                 textStyle = TextStyle(
-                                    color = color,
-                                    fontFamily = FontFamily.SansSerif,
-                                    fontSize = fontSize
+                                    color = ui.textColor,
+                                    fontFamily = ui.fontFamily,
+                                    fontSize = ui.fontSize
                                 ),
                                 maxLines = 1,
-                                modifier = Modifier.alpha(alpha),
+                                modifier = Modifier.alpha(ui.alpha),
                                 value = holderValue, onValueChange = { text = it },
                                 cursorBrush = SolidColor(Color.Unspecified),
                             )
@@ -90,15 +83,15 @@ fun CredentialArea(
                         /* Icon box, icon is centered to the middle. Reason of maxSize is top box is already filling 0.9f size of area.*/
                         Box(
                             modifier = Modifier
-                                .size(iconSize),
+                                .size(ui.iconSize),
                             contentAlignment = Alignment.Center
                         ) {
                             if (icon != null) {
                                 Icon(
                                     imageVector = icon,
                                     contentDescription = icon.name,
-                                    tint = color,
-                                    modifier = Modifier.size(iconSize)
+                                    tint = ui.textColor,
+                                    modifier = Modifier.size(ui.iconSize)
                                 )
                             }
                         }
@@ -114,29 +107,29 @@ fun CredentialArea(
                     Text(
                         text = title,
                         fontWeight = FontWeight.Bold,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        color = color,
+                        fontSize = ui.fontSize,
+                        fontFamily = ui.fontFamily,
+                        color = ui.textColor,
                         modifier = Modifier.padding(
-                            top = padding,
-                            start = padding,
+                            top = ui.padding,
+                            start = ui.padding,
                         )
                     )
                     /* Usage of row: To be able to add icon in the end of the TextField */
                     Row(
-                        modifier = Modifier.fillMaxSize().padding(horizontal = padding),
+                        modifier = Modifier.fillMaxSize().padding(horizontal = ui.padding),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         /* Box sized 0.9f of possible area for entering value.*/
                         Box(modifier = Modifier.weight(1f)) {
                             BasicTextField(
                                 textStyle = TextStyle(
-                                    color = color,
+                                    color = ui.textColor,
                                     fontFamily = FontFamily.SansSerif,
-                                    fontSize = fontSize
+                                    fontSize = ui.fontSize
                                 ),
                                 maxLines = 1,
-                                modifier = Modifier.alpha(alpha),
+                                modifier = Modifier.alpha(ui.alpha),
                                 value = holderValue, onValueChange = { text = it },
                                 cursorBrush = SolidColor(Color.Unspecified),
                             )
@@ -144,15 +137,15 @@ fun CredentialArea(
                         /* Icon box, icon is centered to the middle. Reason of maxSize is top box is already filling 0.9f size of area.*/
                         Box(
                             modifier = Modifier
-                                .size(iconSize),
+                                .size(ui.iconSize),
                             contentAlignment = Alignment.Center
                         ) {
                             if (icon != null) {
                                 Icon(
                                     imageVector = icon,
                                     contentDescription = icon.name,
-                                    tint = color,
-                                    modifier = Modifier.size(iconSize)
+                                    tint = ui.textColor,
+                                    modifier = Modifier.size(ui.iconSize)
                                 )
                             }
                         }

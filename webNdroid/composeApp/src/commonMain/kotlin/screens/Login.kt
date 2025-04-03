@@ -11,11 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import components.CredentialsBox
 import components.PageTitle
 import models.createResponsiveUi
@@ -34,28 +29,14 @@ fun Login() {
                 Column(modifier = Modifier.fillMaxSize()) {
                     Box(modifier = Modifier.weight(1f)) {
                         PageTitle(
-                            isMobile = ui.isMobile,
-                            padding = ui.padding,
-                            textColor = ui.textColor,
-                            backgroundColor = ui.backgroundColor,
-                            contrastColor = ui.contrastColor,
-                            fontFamily = ui.fontFamily,
-                            title = "Login",
-                            titleSize = ui.titleSize
+                            ui = ui,
+                            title = "Login"
                         )
                     }
                     //Spacer(Modifier.weight(1f))
 
                     Box(modifier = Modifier.weight(1f)) {
                         CredentialsBox(
-                            isMobile = ui.isMobile,
-                            fontSize = ui.fontSize,
-                            padding = ui.padding,
-                            textColor = ui.textColor,
-                            contrastColor = ui.contrastColor,
-                            alpha = ui.alpha,
-                            fontFamily = ui.fontFamily,
-                            iconSize = ui.iconSize,
                             firstBoxTitle = "Email",
                             firstBoxHolderValue = "Enter y our email address",
                             secondBoxTitle = "Password",
@@ -64,7 +45,8 @@ fun Login() {
                             navigationSentence = "Don't have account?",
                             navigationHighlightSentence = "Sign up!",
                             isLogin = true,
-                            isSignUp = false
+                            isSignUp = false,
+                            ui = ui
                         )
                     }
 
@@ -83,28 +65,15 @@ fun Login() {
                     ) {
                         Box(modifier = Modifier.weight(1f)) {
                             PageTitle(
-                                isMobile = ui.isMobile,
-                                padding = ui.padding,
-                                textColor = ui.textColor,
-                                backgroundColor = ui.backgroundColor,
-                                contrastColor = ui.contrastColor,
-                                fontFamily = ui.fontFamily,
-                                title = "Login",
-                                titleSize = ui.titleSize
+                                ui = ui,
+                                title = "Login"
                             )
                         }
                         //Spacer(Modifier.weight(1f))
 
                         Box(modifier = Modifier.weight(1f)) {
                             CredentialsBox(
-                                isMobile = ui.isMobile,
-                                fontSize = ui.fontSize,
-                                padding = ui.padding,
-                                textColor = ui.textColor,
-                                contrastColor = ui.contrastColor,
-                                alpha = ui.alpha,
-                                fontFamily = ui.fontFamily,
-                                iconSize = ui.iconSize,
+
                                 firstBoxTitle = "Email",
                                 firstBoxHolderValue = "Enter your email address",
                                 secondBoxTitle = "Password",
@@ -113,7 +82,8 @@ fun Login() {
                                 navigationSentence = "Don't have account?",
                                 navigationHighlightSentence = "Sign up!",
                                 isLogin = true,
-                                isSignUp = false
+                                isSignUp = false,
+                                ui = ui
                             )
                         }
 

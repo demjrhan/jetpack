@@ -2,7 +2,9 @@ package components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -18,14 +20,14 @@ import webndroid.composeapp.generated.resources.android_background
 import webndroid.composeapp.generated.resources.web_background
 
 @Composable
-fun MobileHomeContent(ui: ResponsiveUi, modifier: Modifier){
+fun MobileHomeContent(ui: ResponsiveUi, innerPadding:PaddingValues){
 
     val listState = rememberLazyListState()
-    Box(modifier = modifier.fillMaxSize().paint(
+    Box(modifier = Modifier.fillMaxSize().paint(
         painter = painterResource(Res.drawable.android_background),
         contentScale = ContentScale.Crop
     )){
-        LazyColumn(state = listState, modifier = modifier.fillMaxSize()){
+        LazyColumn(state = listState, modifier = Modifier.fillMaxSize(), contentPadding = innerPadding){
             item { ContentBox(ui, height = 300.dp) }
             item { ContentBox(ui, height = 300.dp) }
             item { ContentBox(ui, height = 300.dp) }
@@ -34,8 +36,8 @@ fun MobileHomeContent(ui: ResponsiveUi, modifier: Modifier){
     }
 }
 @Composable
-fun WebHomeContent(ui: ResponsiveUi, modifier: Modifier){
-    Box(modifier = modifier.fillMaxSize().paint(
+fun WebHomeContent(ui: ResponsiveUi, innerPadding:PaddingValues){
+    Box(modifier = Modifier.fillMaxSize().paint(
         painter = painterResource(Res.drawable.web_background),
         contentScale = ContentScale.Crop
     )){

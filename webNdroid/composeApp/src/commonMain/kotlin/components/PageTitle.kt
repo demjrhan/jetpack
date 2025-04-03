@@ -21,33 +21,26 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import models.ResponsiveUi
 
 
 @Composable
 fun PageTitle(
-    isMobile: Boolean,
-    padding: Dp,
-    backgroundColor: Color,
-    textColor: Color,
-    contrastColor: Color,
-    fontFamily: FontFamily,
+    ui: ResponsiveUi,
     title: String,
-    titleSize: TextUnit
 ) {
 
     BoxWithConstraints {
         TopBubbles(
-            contrastColor = contrastColor,
-            backgroundColor = backgroundColor,
-            isMobile = isMobile
+            ui = ui
         )
 
-        if (isMobile) {
+        if (ui.isMobile) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(bottomStart = 35.dp, bottomEnd = 35.dp))
-                    .padding(top = padding * 4, bottom = padding, start = padding, end = padding)
+                    .padding(top = ui.padding * 4, bottom = ui.padding, start = ui.padding, end = ui.padding)
             ) {
                 Box(
                     modifier = Modifier
@@ -60,9 +53,9 @@ fun PageTitle(
                     Text(
                         text = title,
                         textAlign = TextAlign.Center,
-                        color = textColor,
-                        fontFamily = fontFamily,
-                        fontSize = titleSize,
+                        color = ui.textColor,
+                        fontFamily = ui.fontFamily,
+                        fontSize = ui.titleSize,
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -74,7 +67,7 @@ fun PageTitle(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(bottomStart = 35.dp, bottomEnd = 35.dp))
-                    .padding(top = padding * 4, bottom = padding, start = padding, end = padding)
+                    .padding(top = ui.padding * 4, bottom = ui.padding, start = ui.padding, end = ui.padding)
             ) {
                 Box(
                     modifier = Modifier
@@ -87,9 +80,9 @@ fun PageTitle(
                     Text(
                         text = title,
                         textAlign = TextAlign.Center,
-                        color = textColor,
-                        fontFamily = fontFamily,
-                        fontSize = titleSize,
+                        color = ui.textColor,
+                        fontFamily = ui.fontFamily,
+                        fontSize = ui.titleSize,
                         fontWeight = FontWeight.Bold
                     )
                 }

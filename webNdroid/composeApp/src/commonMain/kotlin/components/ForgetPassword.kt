@@ -15,35 +15,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import models.ResponsiveUi
 
 
 @Composable
 fun ForgotPassword(
-    isMobile: Boolean,
-    color: Color,
-    padding: Dp,
-    fontSize: TextUnit,
-    fontFamily: FontFamily
+    ui: ResponsiveUi
 ) {
     /* Right side of the remember me box, that is why full size. Remember me part is 0.5f of screen. */
     BoxWithConstraints(
         modifier = Modifier
             .height(25.dp)
     ) {
-        if (isMobile) {
+        if (ui.isMobile) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(end = padding),
+                    .padding(end = ui.padding),
                 contentAlignment = Alignment.CenterEnd,
 
                 ) {
                 Text(
                     text = "Forgot Password?",
                     fontWeight = FontWeight.Bold,
-                    color = color,
-                    fontSize = fontSize,
-                    fontFamily = fontFamily
+                    color = ui.textColor,
+                    fontSize = ui.fontSize,
+                    fontFamily = ui.fontFamily
                 )
 
             }
@@ -52,16 +49,16 @@ fun ForgotPassword(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(end = padding),
+                    .padding(end = ui.padding),
                 contentAlignment = Alignment.CenterEnd,
 
                 ) {
                 Text(
                     text = "Forgot Password?",
                     fontWeight = FontWeight.Bold,
-                    color = color,
-                    fontSize = fontSize,
-                    fontFamily = fontFamily
+                    color = ui.textColor,
+                    fontSize = ui.fontSize,
+                    fontFamily = ui.fontFamily
                 )
 
             }

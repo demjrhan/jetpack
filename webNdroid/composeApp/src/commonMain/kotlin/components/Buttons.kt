@@ -20,24 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.PaintingStyle
-import androidx.compose.ui.graphics.drawscope.ContentDrawScope
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import models.ResponsiveUi
 
 
 @Composable
@@ -62,42 +48,45 @@ fun ToggleButton(showNavBar: Boolean, onClick: () -> Unit) {
 
 @Composable
 fun GenericBigButton(
-    contrastColor: Color, fontSize: TextUnit, text: String, fontFamily: FontFamily, isMobile:Boolean
+    ui:ResponsiveUi,
+    text: String,
 ) {
     BoxWithConstraints {
-        if(isMobile){
+        if (ui.isMobile) {
             Box(
-                modifier = Modifier.fillMaxWidth().height(42.dp), contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxWidth().height(42.dp),
+                contentAlignment = Alignment.Center
             ) {
 
                 Button(
                     onClick = { /* TODO */ },
                     shape = RoundedCornerShape(25.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = contrastColor
+                        containerColor = ui.contrastColor
                     ),
                     modifier = Modifier.fillMaxWidth(0.87f).fillMaxHeight(0.9f)
                 ) {
                     Text(
-                        text = text, fontSize = fontSize, fontFamily = fontFamily
+                        text = text, fontSize = ui.fontSize, fontFamily = ui.fontFamily
                     )
                 }
             }
-        }else {
+        } else {
             Box(
-                modifier = Modifier.fillMaxWidth().height(52.dp), contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxWidth().height(52.dp),
+                contentAlignment = Alignment.Center
             ) {
 
                 Button(
                     onClick = { /* TODO */ },
                     shape = RoundedCornerShape(25.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = contrastColor
+                        containerColor = ui.contrastColor
                     ),
                     modifier = Modifier.fillMaxWidth(0.87f).fillMaxHeight(0.9f)
                 ) {
                     Text(
-                        text = text, fontSize = fontSize, fontFamily = fontFamily
+                        text = text, fontSize = ui.fontSize, fontFamily = ui.fontFamily
                     )
                 }
             }

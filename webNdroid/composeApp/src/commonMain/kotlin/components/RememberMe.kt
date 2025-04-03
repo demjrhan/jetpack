@@ -23,30 +23,26 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import models.ResponsiveUi
 
 
 @Composable
 fun RememberMe(
-    isMobile: Boolean,
-    color: Color,
-    padding: Dp,
-    fontSize: TextUnit,
-    alpha: Float,
-    fontFamily: FontFamily
+    ui: ResponsiveUi
 ) {
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxWidth(0.5f)
             .height(25.dp)
     ) {
-        if (isMobile) {
+        if (ui.isMobile) {
             Box(
                 modifier = Modifier
                     .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 Row(
-                    modifier = Modifier.fillMaxSize().padding(start = padding),
+                    modifier = Modifier.fillMaxSize().padding(start = ui.padding),
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -56,17 +52,17 @@ fun RememberMe(
                             .clip(RoundedCornerShape(25))
                             .border(
                                 width = 1.dp,
-                                color = color.copy(alpha),
+                                color = ui.checkBoxColor.copy(ui.alpha),
                                 shape = RoundedCornerShape(25)
                             )
                     )
-                    Spacer(Modifier.padding(start = padding))
+                    Spacer(Modifier.padding(start = ui.padding))
                     Text(
                         text = "Remember me",
-                        fontSize = fontSize,
-                        color = color,
-                        modifier = Modifier.alpha(alpha),
-                        fontFamily = fontFamily
+                        fontSize = ui.fontSize,
+                        color = ui.textColor,
+                        modifier = Modifier.alpha(ui.alpha),
+                        fontFamily = ui.fontFamily
                     )
                 }
             }
@@ -77,7 +73,7 @@ fun RememberMe(
                 contentAlignment = Alignment.Center
             ) {
                 Row(
-                    modifier = Modifier.fillMaxSize().padding(start = padding),
+                    modifier = Modifier.fillMaxSize().padding(start = ui.padding),
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -87,17 +83,17 @@ fun RememberMe(
                             .clip(RoundedCornerShape(25))
                             .border(
                                 width = 1.dp,
-                                color = color.copy(alpha),
+                                color = ui.checkBoxColor.copy(alpha = ui.alpha),
                                 shape = RoundedCornerShape(25)
                             )
                     )
-                    Spacer(Modifier.padding(start = padding))
+                    Spacer(Modifier.padding(start = ui.padding))
                     Text(
                         text = "Remember me",
-                        fontSize = fontSize,
-                        color = color,
-                        modifier = Modifier.alpha(alpha),
-                        fontFamily = fontFamily
+                        fontSize = ui.fontSize,
+                        color = ui.textColor,
+                        modifier = Modifier.alpha(ui.alpha),
+                        fontFamily = ui.fontFamily
                     )
                 }
             }

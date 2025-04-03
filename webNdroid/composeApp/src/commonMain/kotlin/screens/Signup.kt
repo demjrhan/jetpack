@@ -30,28 +30,15 @@ fun SignUp() {
                 Column(modifier = Modifier.fillMaxSize()) {
                     Box(modifier = Modifier.weight(1f)) {
                         PageTitle(
-                            isMobile = ui.isMobile,
-                            padding = ui.padding,
-                            textColor = ui.textColor,
-                            backgroundColor = ui.contrastColor,
-                            contrastColor = ui.backgroundColor,
-                            fontFamily = ui.fontFamily,
-                            title = "Sign Up",
-                            titleSize = ui.titleSize
+                            ui = ui,
+                            title = "Sign Up"
                         )
                     }
                     //Spacer(Modifier.weight(1f))
 
                     Box(modifier = Modifier.weight(1f)) {
                         CredentialsBox(
-                            isMobile = ui.isMobile,
-                            fontSize = ui.fontSize,
-                            padding = ui.padding,
-                            textColor = ui.textColor,
-                            contrastColor = ui.contrastColor,
-                            alpha = ui.alpha,
-                            fontFamily = ui.fontFamily,
-                            iconSize = ui.iconSize,
+                            ui = ui,
                             firstBoxTitle = "Email",
                             firstBoxHolderValue = "Enter your email address",
                             secondBoxTitle = "Password",
@@ -79,28 +66,15 @@ fun SignUp() {
                     ) {
                         Box(modifier = Modifier.weight(1f)) {
                             PageTitle(
-                                isMobile = ui.isMobile,
-                                padding = ui.padding,
-                                textColor = ui.textColor,
-                                backgroundColor = ui.contrastColor,
-                                contrastColor = ui.backgroundColor,
-                                fontFamily = ui.fontFamily,
-                                title = "Sign Up",
-                                titleSize = ui.titleSize
+                                ui = ui,
+                                title = "Sign Up"
                             )
                         }
                         //Spacer(Modifier.weight(1f))
 
                         Box(modifier = Modifier.weight(1f)) {
                             CredentialsBox(
-                                isMobile = ui.isMobile,
-                                fontSize = ui.fontSize,
-                                padding = ui.padding,
-                                textColor = ui.textColor,
-                                contrastColor = ui.contrastColor,
-                                alpha = ui.alpha,
-                                fontFamily = ui.fontFamily,
-                                iconSize = ui.iconSize,
+                                ui = ui,
                                 firstBoxTitle = "Email",
                                 firstBoxHolderValue = "Enter your email address",
                                 secondBoxTitle = "Password",

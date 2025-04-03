@@ -24,12 +24,10 @@ import kotlin.random.Random
 
 @Composable
 fun TopBubbles(
-    backgroundColor: Color,
-    contrastColor: Color,
-    isMobile: Boolean
+    ui: ResponsiveUi
 ) {
     BoxWithConstraints {
-        if (isMobile) {
+        if (ui.isMobile) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
 
                 /* Left Black Box */
@@ -42,7 +40,7 @@ fun TopBubbles(
                             rotationY = 15f
                         }
                         .clip(RoundedCornerShape(88.dp))
-                        .background(backgroundColor)
+                        .background(ui.backgroundColor)
                 )
                 /* Right Black Box */
                 Box(
@@ -53,7 +51,7 @@ fun TopBubbles(
                             rotationZ = 15f
                         }
                         .clip(RoundedCornerShape(88.dp))
-                        .background(backgroundColor)
+                        .background(ui.backgroundColor)
                 )
                 /*Orange Box*/
                 Box(
@@ -65,7 +63,7 @@ fun TopBubbles(
                             rotationZ = 15f
                         }
                         .clip(RoundedCornerShape(88.dp))
-                        .background(contrastColor)
+                        .background(ui.contrastColor)
                 )
             }
         } else {
@@ -79,7 +77,7 @@ fun TopBubbles(
                             rotationY = 15f
                         }
                         .clip(RoundedCornerShape(88.dp))
-                        .background(backgroundColor)
+                        .background(ui.backgroundColor)
                 )
                 /* Right Black Box */
                 Box(
@@ -90,7 +88,7 @@ fun TopBubbles(
                             rotationZ = 15f
                         }
                         .clip(RoundedCornerShape(88.dp))
-                        .background(backgroundColor)
+                        .background(ui.backgroundColor)
                 )
                 /*Orange Box*/
                 Box(
@@ -101,7 +99,7 @@ fun TopBubbles(
                             rotationZ = 15f
                         }
                         .clip(RoundedCornerShape(88.dp))
-                        .background(contrastColor)
+                        .background(ui.contrastColor)
                 )
             }
 

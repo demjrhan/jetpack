@@ -20,16 +20,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import models.ResponsiveUi
 
 @Composable
 fun NavigateToAuthScreen(
-    isMobile: Boolean,
-    textColor: Color,
-    contrastColor: Color,
-    padding: Dp,
-    fontSize: TextUnit,
-    fontFamily: FontFamily,
-    alpha: Float,
+    ui: ResponsiveUi,
     sentence: String,
     navigationSentence: String
 ) {
@@ -38,11 +33,11 @@ fun NavigateToAuthScreen(
             .height(30.dp)
             .fillMaxWidth()
     ) {
-        if (isMobile) {
+        if (ui.isMobile) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(end = padding),
+                    .padding(end = ui.padding),
                 contentAlignment = Alignment.Center,
 
                 ) {
@@ -53,17 +48,17 @@ fun NavigateToAuthScreen(
                 ) {
                     Text(
                         text = sentence,
-                        color = textColor,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        modifier = Modifier.alpha(alpha)
+                        color = ui.textColor,
+                        fontSize = ui.fontSize,
+                        fontFamily = ui.fontFamily,
+                        modifier = Modifier.alpha(ui.alpha)
                     )
-                    Spacer(Modifier.padding(horizontal = padding / 3))
+                    Spacer(Modifier.padding(horizontal = ui.padding / 3))
                     Text(
                         text =  navigationSentence,
-                        color = contrastColor,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
+                        color = ui.contrastColor,
+                        fontSize = ui.fontSize,
+                        fontFamily = ui.fontFamily,
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -74,7 +69,7 @@ fun NavigateToAuthScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(end = padding),
+                    .padding(end = ui.padding),
                 contentAlignment = Alignment.Center,
 
                 ) {
@@ -85,17 +80,17 @@ fun NavigateToAuthScreen(
                 ) {
                     Text(
                         text = sentence,
-                        color = textColor,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        modifier = Modifier.alpha(alpha)
+                        color = ui.textColor,
+                        fontSize = ui.fontSize,
+                        fontFamily = ui.fontFamily,
+                        modifier = Modifier.alpha(ui.alpha)
                     )
-                    Spacer(Modifier.padding(horizontal = padding / 3))
+                    Spacer(Modifier.padding(horizontal = ui.padding / 3))
                     Text(
                         text =  navigationSentence,
-                        color = contrastColor,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
+                        color = ui.contrastColor,
+                        fontSize = ui.fontSize,
+                        fontFamily = ui.fontFamily,
                         fontWeight = FontWeight.Bold
                     )
                 }
