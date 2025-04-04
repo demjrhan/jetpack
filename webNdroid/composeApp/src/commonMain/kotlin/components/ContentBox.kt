@@ -20,28 +20,28 @@ import androidx.compose.ui.unit.dp
 import models.ResponsiveUi
 
 @Composable
-fun ContentBox(ui: ResponsiveUi) {
+fun ContentBoxMobile(ui: ResponsiveUi) {
 
-    BoxWithConstraints {
-        if (ui.isMobile) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .border(width = 6.dp, color = ui.backgroundColor, shape = RoundedCornerShape(ui.roundedCorner))
-                    .clip(RoundedCornerShape(ui.roundedCorner))
-                    .background(Color(0xFF1A1A1A).copy(alpha = ui.alpha))
-                    .padding(ui.padding)
-            )
-        } else {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .border(width = 6.dp, color = ui.backgroundColor, shape = RoundedCornerShape(ui.roundedCorner))
-                    .clip(RoundedCornerShape(ui.roundedCorner))
-                    .background(Color(0xFF1A1A1A).copy(alpha = ui.alpha))
-                    .padding(ui.padding)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(400.dp)
+            .border(width = 6.dp, color = ui.backgroundColor.copy(alpha = ui.alpha), shape = RoundedCornerShape(ui.roundedCorner))
+            .clip(RoundedCornerShape(ui.roundedCorner))
+            .background(Color(0xFF1A1A1A))
+            .padding(ui.padding)
+    )
+}
 
-            )
-        }
-    }
+@Composable
+fun ContentBoxWeb(ui: ResponsiveUi) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .border(width = 6.dp, color = ui.backgroundColor, shape = RoundedCornerShape(ui.roundedCorner))
+            .clip(RoundedCornerShape(ui.roundedCorner))
+            .background(Color(0xFF1A1A1A).copy(alpha = ui.alpha))
+            .padding(ui.padding)
+
+    )
 }

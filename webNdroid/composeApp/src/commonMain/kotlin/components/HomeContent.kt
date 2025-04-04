@@ -41,15 +41,17 @@ fun MobileHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
             painter = painterResource(Res.drawable.android_background),
             contentScale = ContentScale.Crop
         )
+            .padding(ui.padding)
     ) {
         LazyColumn(
             state = listState,
             modifier = Modifier.fillMaxSize(),
-            contentPadding = innerPadding
+            contentPadding = innerPadding,
+            verticalArrangement = Arrangement.spacedBy(ui.padding)
         ) {
-            item { ContentBox(ui) }
-            item { ContentBox(ui) }
-            item { ContentBox(ui) }
+            item { ContentBoxMobile(ui) }
+            item { ContentBoxMobile(ui) }
+            item { ContentBoxMobile(ui) }
         }
 
     }
@@ -58,61 +60,50 @@ fun MobileHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
 @Composable
 fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .paint(
+        modifier = Modifier.fillMaxSize().paint(
                 painter = painterResource(Res.drawable.web_background),
                 contentScale = ContentScale.Crop
-            )
-            .padding(innerPadding)
+            ).padding(innerPadding)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(ui.padding),
+            modifier = Modifier.fillMaxSize().padding(ui.padding),
             horizontalArrangement = Arrangement.spacedBy(ui.padding)
         ) {
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
+                modifier = Modifier.weight(1f).fillMaxHeight()
             ) {
-                ContentBox(ui = ui)
+                ContentBoxWeb(ui = ui)
 
             }
 
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight(),
+                modifier = Modifier.weight(1f).fillMaxHeight(),
                 verticalArrangement = Arrangement.spacedBy(ui.padding)
 
             ) {
-                Box(modifier = Modifier.weight(1f)){
-                    ContentBox(ui = ui)
+                Box(modifier = Modifier.weight(1f)) {
+                    ContentBoxWeb(ui = ui)
 
                 }
-                Box(modifier = Modifier.weight(1f)){
-                    ContentBox(ui = ui)
+                Box(modifier = Modifier.weight(1f)) {
+                    ContentBoxWeb(ui = ui)
 
                 }
 
             }
 
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight(),
+                modifier = Modifier.weight(1f).fillMaxHeight(),
                 verticalArrangement = Arrangement.spacedBy(ui.padding)
 
             ) {
 
-                Box(modifier = Modifier.weight(2f)){
-                    ContentBox(ui = ui)
+                Box(modifier = Modifier.weight(2f)) {
+                    ContentBoxWeb(ui = ui)
 
                 }
-                Box(modifier = Modifier.weight(1f)){
-                    ContentBox(ui = ui)
+                Box(modifier = Modifier.weight(1f)) {
+                    ContentBoxWeb(ui = ui)
 
                 }
 
