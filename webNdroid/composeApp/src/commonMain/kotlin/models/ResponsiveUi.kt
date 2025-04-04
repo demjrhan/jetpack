@@ -24,7 +24,9 @@ data class ResponsiveUi(
     val headerColor: Color,
     val checkBoxColor: Color,
     val navigationBarWidth: Dp,
-    val roundedCorner: Dp
+    val roundedCorner: Dp,
+    val boxHeight: Dp,
+    val boxTitleSize: TextUnit
 )
 
 
@@ -40,9 +42,11 @@ fun createResponsiveUi(screenWidth: Dp, screenHeight: Dp): ResponsiveUi {
         screenWidth = screenWidth,
         isMobile = isMobile,
         fontSize = if (isMobile) 14.sp else 18.sp,
+        boxTitleSize = if (isMobile) 35.sp else 45.sp,
         padding = if (isMobile) 12.dp else 14.dp,
         iconSize = if (isMobile) 14.dp else 18.dp,
         titleSize = if (isMobile) 70.sp else 90.sp,
+        boxHeight = if (isMobile) 90.dp else 130.dp,
         textColor = Color.White,
         backgroundColor = Color.Black,
         contrastColor = Color(0xFFF87E2B),

@@ -49,9 +49,7 @@ fun MobileHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
             contentPadding = innerPadding,
             verticalArrangement = Arrangement.spacedBy(ui.padding)
         ) {
-            item { ContentBoxMobile(ui) }
-            item { ContentBoxMobile(ui) }
-            item { ContentBoxMobile(ui) }
+            item { ContentBoxMobile(ui, title = "Active Cases", type = "cases") }
         }
 
     }
@@ -72,7 +70,7 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
             Column(
                 modifier = Modifier.weight(1f).fillMaxHeight()
             ) {
-                ContentBoxWeb(ui = ui)
+                ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
 
             }
 
@@ -82,11 +80,11 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
 
             ) {
                 Box(modifier = Modifier.weight(1f)) {
-                    ContentBoxWeb(ui = ui)
+                    ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
 
                 }
                 Box(modifier = Modifier.weight(1f)) {
-                    ContentBoxWeb(ui = ui)
+                    ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
 
                 }
 
@@ -99,11 +97,11 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
             ) {
 
                 Box(modifier = Modifier.weight(2f)) {
-                    ContentBoxWeb(ui = ui)
+                    ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
 
                 }
                 Box(modifier = Modifier.weight(1f)) {
-                    ContentBoxWeb(ui = ui)
+                    ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
 
                 }
 
