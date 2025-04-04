@@ -43,14 +43,7 @@ fun MobileHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
         )
             .padding(ui.padding)
     ) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = innerPadding,
-            verticalArrangement = Arrangement.spacedBy(ui.padding)
-        ) {
-            item { ContentBoxMobile(ui, title = "Active Cases", type = "cases") }
-        }
+
 
     }
 }
@@ -63,51 +56,6 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
                 contentScale = ContentScale.Crop
             ).padding(innerPadding)
     ) {
-        Row(
-            modifier = Modifier.fillMaxSize().padding(ui.padding),
-            horizontalArrangement = Arrangement.spacedBy(ui.padding)
-        ) {
-            Column(
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            ) {
-                ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
 
-            }
-
-            Column(
-                modifier = Modifier.weight(1f).fillMaxHeight(),
-                verticalArrangement = Arrangement.spacedBy(ui.padding)
-
-            ) {
-                Box(modifier = Modifier.weight(1f)) {
-                    ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
-
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
-
-                }
-
-            }
-
-            Column(
-                modifier = Modifier.weight(1f).fillMaxHeight(),
-                verticalArrangement = Arrangement.spacedBy(ui.padding)
-
-            ) {
-
-                Box(modifier = Modifier.weight(2f)) {
-                    ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
-
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    ContentBoxWeb(ui = ui, type = "cases", title = "Active Cases")
-
-                }
-
-            }
-
-
-        }
     }
 }
