@@ -9,7 +9,7 @@ import screens.SignUp
 @Preview
 @Composable
 fun App() {
-   SignUp()
+   Home()
 }
 
 
