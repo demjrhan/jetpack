@@ -10,10 +10,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -65,14 +74,14 @@ fun ContentBoxMobile(ui: ResponsiveUi, title: String) {
 fun ContentBoxWeb(
     ui: ResponsiveUi,
     title: String,
-    items: List<String>,
-    currentPage: Int,
-    onPrevious: () -> Unit,
-    onNext: () -> Unit
+    isMain: Boolean,
+    onToggleLeftTop: (() -> Unit)? = null,
+    onToggleRightTop: (() -> Unit)? = null,
+    onToggleLeftBottom: (() -> Unit)? = null,
+    onToggleRightBottom: (() -> Unit)? = null
 ) {
-    val itemsPerPage = 3
-    val pageCount = (items.size + itemsPerPage - 1) / itemsPerPage
-    val currentItems = items.drop(currentPage * itemsPerPage).take(itemsPerPage)
+
+
 
     Column(
         modifier = Modifier
@@ -102,25 +111,57 @@ fun ContentBoxWeb(
                 )
                 .background(Color(0xFF1A1A1A))
                 .padding(ui.padding),
-            contentAlignment = Alignment.TopCenter
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                currentItems.forEach {
-                    Text(it, color = Color.White)
-                }
+
+
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Button(onClick = onPrevious, enabled = currentPage > 0) {
-                        Text("←")
+                    Button(
+                        onClick = TODO()
+                    ) {
+                        Text("<-")
                     }
-                    Text("Page ${currentPage + 1} / $pageCount", color = Color.White)
-                    Button(onClick = onNext, enabled = currentPage < pageCount - 1) {
-                        Text("→")
+                    Button(
+                        onClick = TODO()
+                    ) {
+                        Text("<-")
                     }
                 }
             }
+            if (isMain) {
+                onToggleLeftTop?.let {
+                    IconButton(onClick = it, modifier = Modifier.align(Alignment.TopStart).size(ui.iconSize)) {
+                        Icon(Icons.Default.Add, contentDescription = "Toggle Left-Top", tint = ui.checkBoxColor)
+                    }
+                }
+                onToggleRightTop?.let {
+                    IconButton(onClick = it, modifier = Modifier.align(Alignment.TopEnd).size(ui.iconSize)) {
+                        Icon(Icons.Default.Add, contentDescription = "Toggle Right-Top", tint = ui.checkBoxColor)
+                    }
+                }
+                onToggleLeftBottom?.let {
+                    IconButton(onClick = it, modifier = Modifier.align(Alignment.BottomStart).size(ui.iconSize)) {
+                        Icon(Icons.Default.Add, contentDescription = "Toggle Left-Bottom", tint = ui.checkBoxColor)
+                    }
+                }
+                onToggleRightBottom?.let {
+                    IconButton(onClick = it, modifier = Modifier.align(Alignment.BottomEnd).size(ui.iconSize)) {
+                        Icon(Icons.Default.Add, contentDescription = "Toggle Right-Bottom", tint = ui.checkBoxColor)
+                    }
+                }
+            }
+
         }
     }
+
+
 }
+
