@@ -2,6 +2,7 @@ package components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,18 +12,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -78,9 +76,12 @@ fun ContentBoxWeb(
     onToggleLeftTop: (() -> Unit)? = null,
     onToggleRightTop: (() -> Unit)? = null,
     onToggleLeftBottom: (() -> Unit)? = null,
-    onToggleRightBottom: (() -> Unit)? = null
+    onToggleRightBottom: (() -> Unit)? = null,
+    leftTopVisible: MutableState<Boolean>? = null,
+    rightTopVisible: MutableState<Boolean>? = null,
+    leftBottomVisible: MutableState<Boolean>? = null,
+    rightBottomVisible: MutableState<Boolean>? = null
 ) {
-
 
 
     Column(
@@ -124,37 +125,76 @@ fun ContentBoxWeb(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Button(
-                        onClick = TODO()
-                    ) {
-                        Text("<-")
-                    }
-                    Button(
-                        onClick = TODO()
-                    ) {
-                        Text("<-")
-                    }
+
                 }
             }
             if (isMain) {
                 onToggleLeftTop?.let {
-                    IconButton(onClick = it, modifier = Modifier.align(Alignment.TopStart).size(ui.iconSize)) {
-                        Icon(Icons.Default.Add, contentDescription = "Toggle Left-Top", tint = ui.checkBoxColor)
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .size(ui.iconSize*2)
+                            .clip(CircleShape)
+                            .background(ui.backgroundColor)
+                            .clickable(onClick = it),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = if (leftTopVisible?.value == true) Icons.Default.Close else Icons.Default.Add,
+                            contentDescription = "Toggle Left-Top",
+                            tint = ui.checkBoxColor
+                        )
                     }
                 }
                 onToggleRightTop?.let {
-                    IconButton(onClick = it, modifier = Modifier.align(Alignment.TopEnd).size(ui.iconSize)) {
-                        Icon(Icons.Default.Add, contentDescription = "Toggle Right-Top", tint = ui.checkBoxColor)
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .size(ui.iconSize*2)
+                            .clip(CircleShape)
+                            .background(ui.backgroundColor)
+                            .clickable(onClick = it),
+                        contentAlignment = Alignment.Center
+                    )  {
+                        Icon(
+                            imageVector = if (rightTopVisible?.value == true) Icons.Default.Close else Icons.Default.Add,
+                            contentDescription = "Toggle Right-Top",
+                            tint = ui.checkBoxColor
+                        )
                     }
                 }
                 onToggleLeftBottom?.let {
-                    IconButton(onClick = it, modifier = Modifier.align(Alignment.BottomStart).size(ui.iconSize)) {
-                        Icon(Icons.Default.Add, contentDescription = "Toggle Left-Bottom", tint = ui.checkBoxColor)
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomStart)
+                            .size(ui.iconSize*2)
+                            .clip(CircleShape)
+                            .background(ui.backgroundColor)
+                            .clickable(onClick = it),
+                        contentAlignment = Alignment.Center
+                    )  {
+                        Icon(
+                            imageVector = if (leftBottomVisible?.value == true) Icons.Default.Close else Icons.Default.Add,
+                            contentDescription = "Toggle Left-Bottom",
+                            tint = ui.checkBoxColor
+                        )
                     }
                 }
                 onToggleRightBottom?.let {
-                    IconButton(onClick = it, modifier = Modifier.align(Alignment.BottomEnd).size(ui.iconSize)) {
-                        Icon(Icons.Default.Add, contentDescription = "Toggle Right-Bottom", tint = ui.checkBoxColor)
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .size(ui.iconSize*2)
+                            .clip(CircleShape)
+                            .background(ui.backgroundColor)
+                            .clickable(onClick = it),
+                        contentAlignment = Alignment.Center
+                    )  {
+                        Icon(
+                            imageVector = if (rightBottomVisible?.value == true) Icons.Default.Close else Icons.Default.Add,
+                            contentDescription = "Toggle Right-Bottom",
+                            tint = ui.checkBoxColor
+                        )
                     }
                 }
             }

@@ -82,7 +82,12 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
 
-                        ContentBoxWeb(ui = ui, title = "Sub-Box", isMain = false)
+                        ContentBoxWeb(
+                            ui = ui,
+                            title = "Messages",
+                            isMain = false,
+                            leftTopVisible = leftTopVisible
+                        )
                     }
                 }
 
@@ -94,7 +99,12 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
                     modifier = Modifier.weight(1f)
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
-                        ContentBoxWeb(ui = ui, title = "Sub-Box", isMain = false)
+                        ContentBoxWeb(
+                            ui = ui,
+                            title = "Upcoming Meetings",
+                            isMain = false,
+                            leftTopVisible = leftTopVisible
+                        )
                     }
                 }
 
@@ -105,12 +115,18 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
             ) {
                 ContentBoxWeb(
                     ui = ui,
-                    title = "Main Box",
+                    title = "Active Cases",
                     isMain = true,
                     onToggleLeftTop = { leftTopVisible.value = !leftTopVisible.value },
                     onToggleRightTop = { rightTopVisible.value = !rightTopVisible.value },
                     onToggleLeftBottom = { leftBottomVisible.value = !leftBottomVisible.value },
-                    onToggleRightBottom = { rightBottomVisible.value = !rightBottomVisible.value }
+                    onToggleRightBottom = { rightBottomVisible.value = !rightBottomVisible.value },
+                    leftTopVisible = leftTopVisible,
+                    rightTopVisible = rightTopVisible,
+                    leftBottomVisible = leftBottomVisible,
+                    rightBottomVisible = rightBottomVisible
+
+
                 )
 
             }
@@ -119,6 +135,7 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
                 modifier = Modifier.weight(1f).fillMaxHeight(),
                 verticalArrangement = Arrangement.spacedBy(ui.padding)
             ) {
+                /* initialOffsetX & targetOffsetX makes us to play with where sliding animation start|end */
                 AnimatedVisibility(
                     enter = slideInHorizontally() + fadeIn(),
                     exit = slideOutHorizontally() + fadeOut(),
@@ -126,10 +143,16 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
                     modifier = Modifier.weight(1f)
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
-                        ContentBoxWeb(ui = ui, title = "Sub-Box", isMain = false)
+                        ContentBoxWeb(
+                            ui = ui,
+                            title = "Notifications",
+                            isMain = false,
+                            leftTopVisible = leftTopVisible
+                        )
                     }
                 }
 
+                /* initialOffsetX & targetOffsetX makes us to play with where sliding animation start|end */
                 AnimatedVisibility(
                     enter = slideInHorizontally() + fadeIn(),
                     exit = slideOutHorizontally() + fadeOut(),
@@ -137,7 +160,12 @@ fun WebHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
                     modifier = Modifier.weight(1f)
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
-                        ContentBoxWeb(ui = ui, title = "Sub-Box", isMain = false)
+                        ContentBoxWeb(
+                            ui = ui,
+                            title = "Requested Documents",
+                            isMain = false,
+                            leftTopVisible = leftTopVisible
+                        )
                     }
                 }
 
