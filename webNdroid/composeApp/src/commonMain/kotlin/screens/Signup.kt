@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import components.CredentialsBox
-import components.PageTitle
+import Login_Signup.CredentialsBox
+import Login_Signup.PageTitle
 import models.createResponsiveUi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

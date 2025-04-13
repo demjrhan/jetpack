@@ -44,7 +44,7 @@ fun MobileHomeContent(ui: ResponsiveUi, innerPadding: PaddingValues) {
             contentPadding = innerPadding,
             verticalArrangement = Arrangement.spacedBy(ui.padding)
         ) {
-            item { ContentBoxMobile(ui, title = "Active Cases") }
+
         }
 
     }

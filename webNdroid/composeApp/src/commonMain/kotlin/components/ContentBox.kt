@@ -29,44 +29,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import models.ResponsiveUi
 
-@Composable
-fun ContentBoxMobile(ui: ResponsiveUi, title: String) {
-    Column(
-        modifier = Modifier
-            .padding(bottom = ui.padding)
-            .fillMaxWidth()
-            .height(400.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(modifier = Modifier.align(Alignment.Start).padding(start = ui.padding + ui.padding)) {
-            Text(
-                text = title,
-                fontSize = ui.boxTitleSize,
-                fontFamily = ui.fontFamily,
-                fontStyle = FontStyle.Italic,
-                color = ui.textColor
-            )
-        }
 
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .clip(RoundedCornerShape(ui.roundedCorner))
-                .border(
-                    width = 6.dp,
-                    color = ui.backgroundColor.copy(alpha = ui.alpha),
-                    shape = RoundedCornerShape(ui.roundedCorner)
-                )
-                .background(Color(0xFF1A1A1A))
-                .padding(ui.padding),
-            contentAlignment = Alignment.Center
-        ) {
-
-        }
-    }
-}
 
 @Composable
 fun ContentBoxWeb(

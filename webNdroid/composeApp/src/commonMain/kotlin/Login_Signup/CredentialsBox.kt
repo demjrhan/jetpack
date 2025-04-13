@@ -1,4 +1,4 @@
-package components
+package Login_Signup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -22,10 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import components.GenericBigButton
+import components.NavigateToAuthScreen
 import models.ResponsiveUi
 
 
@@ -200,7 +199,7 @@ fun CredentialsBox(
 
                     /* Big button for access login,signup etc. */
                     GenericBigButton(
-                        text = "Login",
+                        text = "Login_Signup",
                         ui = ui
                     )
 
