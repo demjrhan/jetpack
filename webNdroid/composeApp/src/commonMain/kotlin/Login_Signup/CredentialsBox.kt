@@ -199,7 +199,7 @@ fun CredentialsBox(
 
                     /* Big button for access login,signup etc. */
                     GenericBigButton(
-                        text = "Login_Signup",
+                        text = buttonText,
                         ui = ui
                     )
 
@@ -209,8 +209,8 @@ fun CredentialsBox(
                     /* Small text under the button navigating to Sign up if user is not registered. */
                     NavigateToAuthScreen(
                         ui = ui,
-                        sentence = "Don't have an account?",
-                        navigationSentence = "Sign up!"
+                        sentence = navigationSentence,
+                        navigationSentence = navigationSentence
 
                     )
 
