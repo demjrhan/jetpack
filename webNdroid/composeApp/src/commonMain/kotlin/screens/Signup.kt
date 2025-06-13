@@ -1,5 +1,6 @@
 package screens
 
+import CredentialsBox
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -11,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import Login_Signup.CredentialsBox
 import Login_Signup.PageTitle
 import models.createResponsiveUi
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -38,16 +38,24 @@ fun SignUp() {
 
                     Box(modifier = Modifier.weight(1f)) {
                         CredentialsBox(
-                            ui = ui,
-                            firstBoxTitle = "Email",
-                            firstBoxHolderValue = "Enter your email address",
-                            secondBoxTitle = "Password",
-                            secondBoxHolderValue = "Enter password",
+                            firstNameTitle = "First Name",
+                            firstNamePlaceholder = "Enter your first name",
+                            lastNameTitle = "Last Name",
+                            lastNamePlaceholder = "Enter your last name",
+                            emailTitle = "Email",
+                            emailPlaceholder = "Enter your email address",
+                            passwordTitle = "Password",
+                            passwordPlaceholder = "Create a password",
+                            // confirmPasswordTitle = "Confirm Password",
+                            // confirmPasswordPlaceholder = "Confirm your password",
+                            birthdayTitle = "Birthday",
+                            birthdayPlaceholder = "Enter your birthday (MM/DD/YYYY)",
                             buttonText = "Sign up",
                             navigationSentence = "Already have an account?",
                             navigationHighlightSentence = "Login!",
                             isSignUp = true,
-                            isLogin = false
+                            isLogin = false,
+                            ui = ui
                         )
                     }
 
@@ -74,17 +82,24 @@ fun SignUp() {
 
                         Box(modifier = Modifier.weight(1f)) {
                             CredentialsBox(
-                                ui = ui,
-                                firstBoxTitle = "Email",
-                                firstBoxHolderValue = "Enter your email address",
-                                secondBoxTitle = "Password",
-                                secondBoxHolderValue = "Enter password",
+                                firstNameTitle = "First Name",
+                                firstNamePlaceholder = "Enter your first name",
+                                lastNameTitle = "Last Name",
+                                lastNamePlaceholder = "Enter your last name",
+                                emailTitle = "Email",
+                                emailPlaceholder = "Enter your email address",
+                                passwordTitle = "Password",
+                                passwordPlaceholder = "Create a password",
+                                // confirmPasswordTitle = "Confirm Password",
+                                // confirmPasswordPlaceholder = "Confirm your password",
+                                birthdayTitle = "Birthday",
+                                birthdayPlaceholder = "Enter your birthday (MM/DD/YYYY)",
                                 buttonText = "Sign up",
                                 navigationSentence = "Already have an account?",
                                 navigationHighlightSentence = "Login!",
                                 isSignUp = true,
-                                isLogin = false
-
+                                isLogin = false,
+                                ui = ui
                             )
                         }
 

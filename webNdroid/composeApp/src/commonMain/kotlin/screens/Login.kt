@@ -1,5 +1,6 @@
 package screens
 
+import CredentialsBox
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -11,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import Login_Signup.CredentialsBox
 import Login_Signup.PageTitle
 import models.createResponsiveUi
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -37,10 +37,10 @@ fun Login() {
 
                     Box(modifier = Modifier.weight(1f)) {
                         CredentialsBox(
-                            firstBoxTitle = "Email",
-                            firstBoxHolderValue = "Enter your email address",
-                            secondBoxTitle = "Password",
-                            secondBoxHolderValue = "Enter password",
+                            emailTitle = "Email", // Updated
+                            emailPlaceholder = "Enter your email address", // Updated
+                            passwordTitle = "Password", // Updated
+                            passwordPlaceholder = "Enter password", // Updated
                             buttonText = "Login",
                             navigationSentence = "Don't have account?",
                             navigationHighlightSentence = "Sign up!",
@@ -73,11 +73,10 @@ fun Login() {
 
                         Box(modifier = Modifier.weight(1f)) {
                             CredentialsBox(
-
-                                firstBoxTitle = "Email",
-                                firstBoxHolderValue = "Enter your email address",
-                                secondBoxTitle = "Password",
-                                secondBoxHolderValue = "Enter password",
+                                emailTitle = "Email", // Updated
+                                emailPlaceholder = "Enter your email address", // Updated
+                                passwordTitle = "Password", // Updated
+                                passwordPlaceholder = "Enter password", // Updated
                                 buttonText = "Login",
                                 navigationSentence = "Don't have account?",
                                 navigationHighlightSentence = "Sign up!",
